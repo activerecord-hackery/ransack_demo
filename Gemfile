@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 
+gem 'rake', '~> 0.8.7'
 gem 'rails', '3.1.0.rc3'
 
 # Bundle edge Rails instead:
@@ -8,6 +9,7 @@ gem 'rails', '3.1.0.rc3'
 gem 'pg'
 
 gem 'ransack'
+gem 'therubyracer-heroku', '0.8.1.pre3'
 
 # Asset template engines
 gem 'sass-rails', "~> 3.1.0.rc"
@@ -16,10 +18,8 @@ gem 'uglifier'
 
 gem 'jquery-rails'
 
-group :development do
-  gem 'machinist'
-  gem 'faker'
-end
+gem 'machinist'
+gem 'faker'
 
 group :test do
   # Pretty printed test output
