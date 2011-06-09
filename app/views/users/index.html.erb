@@ -1,0 +1,40 @@
+<h1>Search Users</h1>
+
+<%= search_form_for @search, url: search_users_path, html: {method: :post} do |f| %>
+  <% setup_search_form f %>
+
+  <%= f.sort_fields do |s| %>
+    <%= render 'sort_fields', f: s %>
+  <% end %>
+  <%= button_to_add_fields "Add Sort", f, :sort %>
+
+  <%= f.grouping_fields do |g| %>
+    <%= render 'grouping_fields', f: g %>
+  <% end %>
+  <%= button_to_add_fields "Add Condition Group", f, :grouping %>
+
+  <%= f.submit %>
+<% end %>
+
+<p>SQL: <%= @users.to_sql %></p>
+
+<h2>Your first 10 results</h2>
+
+<table>
+  <thead>
+    <th>ID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>E-mail</th>
+  </thead>
+  <tbody>
+    <% @users.limit(10).each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
+        <td><%= user.email %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
