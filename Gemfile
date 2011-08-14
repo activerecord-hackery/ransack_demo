@@ -19,6 +19,10 @@ gem 'jquery-rails'
 gem 'machinist'
 gem 'faker'
 
+group :production do
+  gem 'therubyracer-heroku', '0.8.1.pre3'
+end
+
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
