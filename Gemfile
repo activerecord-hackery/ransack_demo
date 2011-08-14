@@ -7,7 +7,7 @@ gem 'rails', '3.1.0.rc5'
 
 gem 'pg'
 
-gem 'ransack', :path => '/Users/emiller/Documents/Projects/ransack'
+gem 'ransack'
 
 # Asset template engines
 gem 'sass-rails', "~> 3.1.0.rc"
