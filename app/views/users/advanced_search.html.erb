@@ -1,0 +1,28 @@
+<h1>Advanced User Search</h1>
+<%= link_to 'Simple mode', users_path %>
+
+<%= search_form_for @search, url: advanced_search_users_path, html: {method: :post} do |f| %>
+  <% setup_search_form f %>
+
+  <fieldset>
+    <legend>Sorting</legend>
+    <%= f.sort_fields do |s| %>
+      <%= render 'sort_fields', f: s %>
+    <% end %>
+    <%= button_to_add_fields "Add Sort", f, :sort %>
+  </fieldset>
+
+  <fieldset>
+    <legend>Condition Groups</legend>
+    <%= f.grouping_fields do |g| %>
+      <%= render 'grouping_fields', f: g %>
+    <% end %>
+    <%= button_to_add_fields "Add Condition Group", f, :grouping %>
+  </fieldset>
+
+  <%= label_tag :distinct, 'Return distinct records?' %>
+  <%= check_box_tag :distinct, '1', params[:distinct].to_i == 1 %>
+  <%= f.submit %>
+<% end %>
+
+<%= render 'results' %>

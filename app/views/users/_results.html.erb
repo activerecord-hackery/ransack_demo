@@ -1,0 +1,22 @@
+<p>SQL: <%= @users.to_sql %></p>
+
+<h2>Your first 10 results</h2>
+
+<table>
+  <thead>
+    <th><%= sort_link @search, :id, {}, :method => action_name == 'advanced_search' ? :post : :get %></th>
+    <th><%= sort_link @search, :first_name, {}, :method => action_name == 'advanced_search' ? :post : :get %></th>
+    <th><%= sort_link @search, :last_name, {}, :method => action_name == 'advanced_search' ? :post : :get %></th>
+    <th><%= sort_link @search, :email, {}, :method => action_name == 'advanced_search' ? :post : :get %></th>
+  </thead>
+  <tbody>
+    <% @users.limit(10).each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
+        <td><%= user.email %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

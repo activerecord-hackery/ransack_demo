@@ -1,22 +1,29 @@
 <h1>Search Users</h1>
+<%= link_to 'Advanced mode', advanced_search_users_path %>
 
-<%= search_form_for @search, url: search_users_path, html: {method: :post} do |f| %>
-  <% setup_search_form f %>
-
+<%= search_form_for @search do |f| %>
   <fieldset>
-    <legend>Sorting</legend>
-    <%= f.sort_fields do |s| %>
-      <%= render 'sort_fields', f: s %>
-    <% end %>
-    <%= button_to_add_fields "Add Sort", f, :sort %>
+    <legend>User</legend>
+    <ul>
+      <li>
+        <%= f.label :first_name_or_last_name_cont %>
+        <%= f.text_field :first_name_or_last_name_cont %>
+      </li>
+      <li>
+        <%= f.label :email_cont %>
+        <%= f.text_field :email_cont %>
+      </li>
+    </ul>
   </fieldset>
 
   <fieldset>
-    <legend>Condition Groups</legend>
-    <%= f.grouping_fields do |g| %>
-      <%= render 'grouping_fields', f: g %>
-    <% end %>
-    <%= button_to_add_fields "Add Condition Group", f, :grouping %>
+    <legend>User's Posts</legend>
+    <ul>
+      <li>
+        <%= f.label :posts_title_cont %>
+        <%= f.text_field :posts_title_cont %>
+      </li>
+    </ul>
   </fieldset>
 
   <%= label_tag :distinct, 'Return distinct records?' %>
@@ -24,25 +31,4 @@
   <%= f.submit %>
 <% end %>
 
-<p>SQL: <%= @users.to_sql %></p>
-
-<h2>Your first 10 results</h2>
-
-<table>
-  <thead>
-    <th>ID</th>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>E-mail</th>
-  </thead>
-  <tbody>
-    <% @users.limit(10).each do |user| %>
-      <tr>
-        <td><%= user.id %></td>
-        <td><%= user.first_name %></td>
-        <td><%= user.last_name %></td>
-        <td><%= user.email %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render 'results' %>
