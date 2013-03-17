@@ -5,15 +5,15 @@ module ApplicationHelper
     end
     content_for :document_ready, %Q{
       var search = new Search({grouping: "#{escape_javascript(fields)}"});
-      $('button.add_fields').live('click', function() {
+      $(document).on("click", "button.add_fields", function() {
         search.add_fields(this, $(this).data('fieldType'), $(this).data('content'));
         return false;
       });
-      $('button.remove_fields').live('click', function() {
+      $(document).on("click", "button.remove_fields", function(){
         search.remove_fields(this);
         return false;
       });
-      $('button.nest_fields').live('click', function() {
+      $(document).on("click", "button.nest_fields", function(){
         search.nest_fields(this, $(this).data('fieldType'));
         return false;
       });
