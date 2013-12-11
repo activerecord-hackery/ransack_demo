@@ -1,7 +1,12 @@
 <h1>Advanced User Search</h1>
 <%= link_to 'Simple mode', users_path %>
 
-<%= search_form_for @search, url: advanced_search_users_path, html: {method: :post} do |f| %>
+<%= search_form_for(
+		@search,
+		url: advanced_search_users_path,
+		html: { method: :post }
+		) do |f| %>
+
   <% setup_search_form f %>
 
   <fieldset>
