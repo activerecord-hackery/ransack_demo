@@ -1,6 +1,6 @@
 # Ransack Demo Application
 
-This is a quick demonstration of how you might use [Ransack](http://github.com/ernie/ransack)
+This is a quick demonstration of how you might use [Ransack](https://github.com/activerecord-hackery/ransack)
 in a Rails 3.1 application to create an "advanced" search form, with nesting, etc.
 
 This isn't quite as polished as I'd like it to be, but I thought it would be best to
