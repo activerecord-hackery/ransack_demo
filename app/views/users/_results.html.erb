@@ -1,34 +1,11 @@
-<p>SQL: <%= @users.to_sql %></p>
+<%= content_tag :p, display_query_sql(@users) %>
 
-<%= content_tag :h2, present_results(@users.size) %>
+<%= content_tag :h2, display_results_header(@users.size) %>
 
-<table>
-  <thead>
-    <th>
-		<%= sort_link(@search, :id, {},
-			method: action_name == 'advanced_search' ? :post : :get) %>
-	</th>
-    <th>
-		<%= sort_link(@search, :first_name, {},
-			method: action_name == 'advanced_search' ? :post : :get) %>
-	</th>
-    <th>
-		<%= sort_link(@search, :last_name, {},
-			method: action_name == 'advanced_search' ? :post : :get) %>
-	</th>
-    <th>
-		<%= sort_link(@search, :email, {},
-			method: action_name == 'advanced_search' ? :post : :get) %>
-	</th>
-  </thead>
-  <tbody>
-    <% @users.limit(10).each do |user| %>
-      <tr>
-        <td><%= user.id %></td>
-        <td><%= user.first_name %></td>
-        <td><%= user.last_name %></td>
-        <td><%= user.email %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= content_tag :table do %>
+
+	<%= content_tag :thead, display_sort_column_headers(@search), nil, false %>
+
+	<%= content_tag :tbody, display_search_results(@users), nil, false %>
+
+<% end %>
