@@ -15,11 +15,11 @@ module UsersHelper
   end
 
   def display_results_header(count)
-  	if count > results_limit
-  		"Your first #{results_limit} results out of #{count} total"
-  	else
-  		"Your #{pluralize(count, 'result')}"
-  	end
+    if count > results_limit
+      "Your first #{results_limit} results out of #{count} total"
+    else
+      "Your #{pluralize(count, 'result')}"
+    end
   end
 
   def action
@@ -28,14 +28,13 @@ module UsersHelper
 
   def display_sort_column_headers(search)
     model_fields.each_with_object('') do |field, string|
-  		string << content_tag(:th, sort_link(search, field, {}, method: action))
-  	end
-
+      string << content_tag(:th, sort_link(search, field, {}, method: action))
+    end
   end
 
   def display_search_results(objects)
     objects.limit(results_limit).each_with_object('') do |object, string|
-	    string << content_tag(:tr, display_search_results_row(object))
+      string << content_tag(:tr, display_search_results_row(object))
     end
   end
 
