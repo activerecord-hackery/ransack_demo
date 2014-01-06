@@ -16,14 +16,14 @@ role[:user] = Role.create :name => 'user', :description => 'A plain old user.'
 Sham.define do
   first_name { Faker::Name.first_name }
   last_name  { Faker::Name.last_name }
-  role       {|index| (index % 2).zero? ? role[:moderator] : role[:user]}
+  role       { |index| (index % 2).zero? ? role[:moderator] : role[:user] }
 end
 
 User.blueprint do
   first_name
   last_name
-  roles       {[Sham.role]}
-  email       {"#{object.first_name.downcase}-#{object.last_name.downcase}@example.com"}
+  roles       { [Sham.role] }
+  email       { "#{object.first_name.downcase}-#{object.last_name.downcase}@example.com" }
 end
 
 commenters = 1.upto(3).map { User.make :roles => [role[:user]] }
@@ -32,7 +32,7 @@ commenters = 1.upto(3).map { User.make :roles => [role[:user]] }
 Sham.define do
   title                        { Faker::Lorem.sentence }
   body                         { Faker::Lorem.paragraph }
-  commenter(:unique => false)  {|index| commenters[index % 3]}
+  commenter(:unique => false)  { |index| commenters[index % 3] }
 end
 
 Comment.blueprint do
@@ -43,7 +43,7 @@ end
 Post.blueprint do
   title
   body
-  tag_names   {Faker::Lorem.words(3).join(',')}
+  tag_names   { Faker::Lorem.words(3).join(',') }
 end
 
 10.times do
