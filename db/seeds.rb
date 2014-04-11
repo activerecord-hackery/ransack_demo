@@ -5,53 +5,39 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-require 'machinist/active_record'
+require 'factory_girl'
 
 role = {}
 role[:admin] = Role.create :name => 'admin', :description => 'Superuser.'
 role[:moderator] = Role.create :name => 'moderator', :description => 'Can moderate comments.'
 role[:user] = Role.create :name => 'user', :description => 'A plain old user.'
 
-# User shams
-Sham.define do
-  first_name { Faker::Name.first_name }
-  last_name  { Faker::Name.last_name }
-  role       { |index| (index % 2).zero? ? role[:moderator] : role[:user] }
-end
+FactoryGirl.define do
+  factory :user do
+    first_name { Faker::Name.first_name  }
+    last_name { Faker::Name.last_name }
+    roles       { ["user"] }
+    email       { "#{self.first_name.downcase}-#{self.last_name.downcase}@example.com" }
+  end
 
-User.blueprint do
-  first_name
-  last_name
-  roles       { [Sham.role] }
-  email       { "#{object.first_name.downcase}-#{object.last_name.downcase}@example.com" }
-end
+  factory :post do
+    title { Faker::Lorem.sentence }
+    body  { Faker::Lorem.paragraph }
+    tag_names { Faker::Lorem.words(3).join(',') }
+  end
 
-commenters = 1.upto(3).map { User.make :roles => [role[:user]] }
+  commenters = 1.upto(3).map { FactoryGirl.create(:user, roles: [role[:user]]) }
 
-# Post/comment shams
-Sham.define do
-  title                        { Faker::Lorem.sentence }
-  body                         { Faker::Lorem.paragraph }
-  commenter(:unique => false)  { |index| commenters[index % 3] }
-end
-
-Comment.blueprint do
-  user { Sham.commenter }
-  body
-end
-
-Post.blueprint do
-  title
-  body
-  tag_names   { Faker::Lorem.words(3).join(',') }
+  factory :comment do
+    user { commenters.sample }
+    body { Faker::Lorem.paragraph }
+  end
 end
 
 10.times do
-  User.make(:roles => [role[:admin]]) do |user|
-    3.times do
-      user.posts.make do |post|
-        3.times { post.comments.make }
-      end
-    end
+  user = FactoryGirl.create(:user, :roles => [role[:admin]])
+  3.times do
+    post = FactoryGirl.create(:post, :user => user)
+    3.times { FactoryGirl.create(:comment, :post => post) }
   end
 end
