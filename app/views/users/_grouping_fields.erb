@@ -1,0 +1,19 @@
+<%= content_tag :fieldset, { class: 'fields',
+  'data-object-name' => f.object_name } do %>
+
+  <%= content_tag(:legend, "Match #{f.combinator_select} conditions #{
+    button_to_remove_fields 'remove', f}", nil, false) %>
+
+  <%= f.condition_fields do |c| %>
+    <%= render 'condition_fields', f: c %>
+  <% end %>
+
+  <%= button_to_add_fields 'Add Condition', f, :condition %>
+
+  <%= f.grouping_fields do |g| %>
+    <%= render 'grouping_fields', f: g %>
+  <% end %>
+
+  <%= button_to_nest_fields 'Add Condition Group', :grouping %>
+
+<% end %>

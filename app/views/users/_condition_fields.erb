@@ -1,0 +1,20 @@
+<%= content_tag :fieldset, {
+  class: 'fields condition', 'data-object-name' => f.object_name
+  } do %>
+
+  <%= content_tag(:legend, button_to_remove_fields('remove', f),
+    nil, false) %>
+
+  <%= f.attribute_fields do |a| %>
+    <%= render 'attribute_fields', f: a %>
+  <% end %>
+
+  <%= f.predicate_select %>
+
+  <%= f.value_fields do |v| %>
+    <%= render 'value_fields', f: v %>
+  <% end %>
+
+  <%= button_to_add_fields 'Add Value', f, :value %>
+
+<% end %>

@@ -1,11 +1,6 @@
 <%= content_tag :p, display_query_sql(@users) %>
-
 <%= content_tag :h2, display_results_header(@users.size) %>
-
 <%= content_tag :table do %>
-
-	<%= content_tag :thead, display_sort_column_headers(@search), nil, false %>
-
-	<%= content_tag :tbody, display_search_results(@users), nil, false %>
-
+  <%= content_tag :thead, display_sort_column_headers(@search), nil, false %>
+  <%= content_tag :tbody, display_search_results(@users), nil, false %>
 <% end %>

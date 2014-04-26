@@ -1,0 +1,3 @@
+<%= content_tag(:span,
+  "#{f.sort_select} #{button_to_remove_fields('remove', f)}",
+  { class: 'fields', 'data-object-name' => f.object_name }, false) %>
