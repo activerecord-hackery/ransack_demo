@@ -23,12 +23,12 @@ gem 'jquery-rails'
 
 gem 'pry'
 
-group:development, :test do
+group :development, :test do
   gem "rspec-rails"
   gem "factory_girl_rails"
 end
 
-group:testi do
+group :test do
   gem "faker"
   gem "capybara"
   gem "database_cleaner"
