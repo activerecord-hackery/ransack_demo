@@ -17,8 +17,9 @@ development:
   encoding: unicode
   database: ransack_demo_development
   pool: 5
-  username: ransack_demo
-  password:
+  username: vagrant
+  password: 
+  port: 5433
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -43,8 +44,9 @@ test:
   encoding: unicode
   database: ransack_demo_test
   pool: 5
-  username: ransack_demo
+  username: vagrant
   password:
+  port: 5433
 
 production:
   adapter: postgresql
