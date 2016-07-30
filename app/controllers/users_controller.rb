@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def index
-    @search = User.search(params[:q])
+    @search = User.ransack(params[:q])
     @users = ransack_result
   end
 
