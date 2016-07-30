@@ -3,13 +3,11 @@ source 'http://rubygems.org'
 gem 'rails', '5.0.0'
 
 # Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
+# gem 'rails', github: 'rails/rails'
 
 gem 'sqlite3'
-gem 'ransack', github: "activerecord-hackery/ransack"
+gem 'ransack'
 
-# Gems used only for assets and not required
-# in production environments by default.
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
@@ -17,14 +15,19 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'puma'
 
-gem 'factory_girl'
-gem 'faker'
-
-gem 'pry'
-gem 'responders'
+group :development do
+  gem 'faker'
+end
 
 group :test do
-  # Pretty printed test output
-  gem 'turn', :require => false
+  gem 'turn', require: false
+end
+
+group :development, :test do
+  gem 'factory_girl'
+  gem 'pry-awesome_print'
+  gem 'pry-highlight'
+  gem 'pry-rails'
 end
