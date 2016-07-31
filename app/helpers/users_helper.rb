@@ -1,5 +1,4 @@
 module UsersHelper
-
   def model_fields
     # which fields to display and sort by
     [:id, :first_name, :last_name, :email]
@@ -28,21 +27,20 @@ module UsersHelper
 
   def display_sort_column_headers(search)
     model_fields.each_with_object('') do |field, string|
-      string << content_tag(:th, sort_link(search, field, {}, method: action))
+      string << (tag.th sort_link(search, field, {}, method: action))
     end
   end
 
   def display_search_results(objects)
     objects.limit(results_limit).each_with_object('') do |object, string|
-      string << content_tag(:tr, display_search_results_row(object))
+      string << (tag.tr display_search_results_row(object))
     end
   end
 
   def display_search_results_row(object)
     model_fields.each_with_object('') do |field, string|
-      string << content_tag(:td, object.send(field))
+      string << (tag.td object.send(field))
     end
     .html_safe
   end
-
 end

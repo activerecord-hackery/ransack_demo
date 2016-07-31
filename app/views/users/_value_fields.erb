@@ -1,2 +1,4 @@
-<%= content_tag(:span, f.text_field(:value),
-  { class: 'fields value', 'data-object-name' => f.object_name }, false) %>
+<%= tag.span f.text_field(:value),
+  class: %w(fields value),
+  'data-object-name': f.object_name,
+  escape_attributes: false %>

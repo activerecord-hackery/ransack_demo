@@ -1,9 +1,7 @@
-<%= content_tag :fieldset, {
-  class: 'fields condition', 'data-object-name' => f.object_name
-  } do %>
+<%= tag.fieldset class: %w(fields condition),
+  'data-object-name': f.object_name do %>
 
-  <%= content_tag(:legend, button_to_remove_fields('remove', f),
-    nil, false) %>
+  <%= tag.legend button_to_remove_fields('Remove', f) %>
 
   <%= f.attribute_fields do |a| %>
     <%= render 'attribute_fields', f: a %>
@@ -16,5 +14,4 @@
   <% end %>
 
   <%= button_to_add_fields 'Add Value', f, :value %>
-
 <% end %>
