@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 module UsersHelper
   def model_fields
     # which fields to display and sort by
-    [:id, :first_name, :last_name, :email]
+    %i(id first_name last_name email).freeze
   end
 
   def results_limit
@@ -22,23 +23,27 @@ module UsersHelper
   end
 
   def action
-    action_name == 'advanced_search' ? :post : :get
+    if action_name == 'advanced_search'
+      :post
+    else
+      :get
+    end
   end
 
   def display_sort_column_headers(search)
-    model_fields.each_with_object('') do |field, string|
+    model_fields.reduce(String.new) do |string, field|
       string << (tag.th sort_link(search, field, {}, method: action))
     end
   end
 
   def display_search_results(objects)
-    objects.limit(results_limit).each_with_object('') do |object, string|
+    objects.limit(results_limit).reduce(String.new) do |string, object|
       string << (tag.tr display_search_results_row(object))
     end
   end
 
   def display_search_results_row(object)
-    model_fields.each_with_object('') do |field, string|
+    model_fields.reduce(String.new) do |string, field|
       string << (tag.td object.send(field))
     end
     .html_safe

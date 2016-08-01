@@ -1,7 +1,7 @@
-<%= tag.fieldset class: %w(fields condition),
+<%= tag.fieldset class: %i(fields condition).freeze,
   'data-object-name': f.object_name do %>
 
-  <%= tag.legend button_to_remove_fields('Remove', f) %>
+  <%= tag.legend button_to_remove_fields('Remove'.freeze, f) %>
 
   <%= f.attribute_fields do |a| %>
     <%= render 'attribute_fields', f: a %>

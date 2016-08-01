@@ -1,4 +1,4 @@
 <%= tag.span f.text_field(:value),
-  class: %w(fields value),
+  class: %i(fields value).freeze,
   'data-object-name': f.object_name,
   escape_attributes: false %>
