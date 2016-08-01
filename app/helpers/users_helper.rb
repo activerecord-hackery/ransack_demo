@@ -10,7 +10,7 @@ module UsersHelper
   end
 
   def display_query_sql(users)
-    raw 'SQL: ' + tag.code(users.to_sql)
+    tag.p('SQL:') + tag.code(users.to_sql)
   end
 
   def display_results_header(count)
