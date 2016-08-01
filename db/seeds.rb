@@ -8,21 +8,29 @@
 require 'factory_girl'
 
 role = {}
-role[:admin] = Role.create :name => 'admin', :description => 'Superuser.'
-role[:moderator] = Role.create :name => 'moderator', :description => 'Can moderate comments.'
-role[:user] = Role.create :name => 'user', :description => 'A plain old user.'
+
+role[:admin] = Role.create(name: 'admin', description: 'Superuser.')
+
+role[:moderator] = Role.create(
+  name:        'moderator',
+  description: 'Can moderate comments.'
+  )
+
+role[:user] = Role.create(name: 'user', description: 'A plain old user.')
 
 FactoryGirl.define do
   factory :user do
     first_name { Faker::Name.first_name  }
-    last_name { Faker::Name.last_name }
-    roles       { ["user"] }
-    email       { "#{self.first_name.downcase}-#{self.last_name.downcase}@example.com" }
+    last_name  { Faker::Name.last_name }
+    roles      { ['user'] }
+    email      {
+      "#{self.first_name.downcase}-#{self.last_name.downcase}@example.com"
+    }
   end
 
   factory :post do
-    title { Faker::Lorem.sentence }
-    body  { Faker::Lorem.paragraph }
+    title     { Faker::Lorem.sentence }
+    body      { Faker::Lorem.paragraph }
     tag_names { Faker::Lorem.words(3).join(',') }
   end
 
@@ -35,9 +43,9 @@ FactoryGirl.define do
 end
 
 10.times do
-  user = FactoryGirl.create(:user, :roles => [role[:admin]])
+  user = FactoryGirl.create(:user, roles: [role[:admin]])
   3.times do
-    post = FactoryGirl.create(:post, :user => user)
-    3.times { FactoryGirl.create(:comment, :post => post) }
+    post = FactoryGirl.create(:post, user: user)
+    3.times { FactoryGirl.create(:comment, post: post) }
   end
 end
