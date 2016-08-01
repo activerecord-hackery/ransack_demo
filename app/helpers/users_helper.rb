@@ -2,7 +2,7 @@
 module UsersHelper
   def model_fields
     # which fields to display and sort by
-    %i(id first_name last_name email).freeze
+    %i(id first_name last_name email created updated).freeze
   end
 
   def results_limit
