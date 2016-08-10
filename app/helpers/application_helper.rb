@@ -22,21 +22,28 @@ module ApplicationHelper
     }.html_safe
   end
 
-  def button_to_remove_fields(name, f)
-    tag.button name, class: 'remove_fields'
+  def button_to_remove_fields
+    tag.button 'Remove', class: 'remove_fields'
   end
 
-  def button_to_add_fields(name, f, type)
-    new_object = f.object.send "build_#{type}"
-    fields = f.send("#{type}_fields", new_object, child_index: "new_#{type}") do |builder|
-      render(type.to_s + '_fields', f: builder)
+  def button_to_add_fields(f, type)
+    new_object, name = f.object.send("build_#{type}"), "#{type}_fields"
+    fields = f.send(name, new_object, child_index: "new_#{type}") do |builder|
+      render(name, f: builder)
     end
 
-    tag.button name,
-      class: 'add_fields', 'data-field-type': type, 'data-content': "#{fields}"
+    tag.button button_label[type], class: 'add_fields', 'data-field-type': type,
+      'data-content': "#{fields}"
   end
 
-  def button_to_nest_fields(name, type)
-    tag.button name, class: 'nest_fields', 'data-field-type': type
+  def button_to_nest_fields(type)
+    tag.button button_label[type], class: 'nest_fields', 'data-field-type': type
+  end
+
+  def button_label
+    { value:     'Add Value',
+      condition: 'Add Condition',
+      sort:      'Add Sort',
+      grouping:  'Add Condition Group' }.freeze
   end
 end

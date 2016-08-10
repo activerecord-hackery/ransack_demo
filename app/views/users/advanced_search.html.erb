@@ -14,7 +14,7 @@
     <%= f.sort_fields do |s| %>
       <%= render 'sort_fields', f: s %>
     <% end %>
-    <%= button_to_add_fields "Add Sort", f, :sort %>
+    <%= button_to_add_fields(f, :sort) %>
   <% end %>
 
   <%= tag.fieldset do %>
@@ -22,7 +22,7 @@
     <%= f.grouping_fields do |g| %>
       <%= render 'grouping_fields', f: g %>
     <% end %>
-    <%= button_to_add_fields "Add Condition Group", f, :grouping %>
+    <%= button_to_add_fields(f, :grouping) %>
   <% end %>
 
   <%= display_distinct_label_and_check_box %>
