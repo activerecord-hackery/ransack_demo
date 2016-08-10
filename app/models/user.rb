@@ -4,11 +4,11 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
 
   def created
-    created_at.to_s(:long_ordinal)
+    created_at.to_s(:long)
   end
 
   def updated
-    updated_at.to_s(:long_ordinal)
+    updated_at.to_s(:long)
   end
 
   ransacker :full_name do |parent|
