@@ -5,7 +5,7 @@
 body {
   font-family: "Helvetica", "Arial", sans-serif;
   margin: 0 auto;
-  max-width: 56em;
+  max-width: 76em;
   line-height: 1.5;
   padding: 4em 1em;
   color: #555;
@@ -31,4 +31,13 @@ code {
 th, td {
   padding: 0 8px;
   text-align: left;
+}
+input[type='checkbox'] {
+  margin: 1em;
+}
+input[type='submit'] {
+  line-height: 2.5;
+}
+button {
+  line-height: 2;
 }
