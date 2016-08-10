@@ -10,6 +10,15 @@ module UsersHelper
     10
   end
 
+  def post_title_length
+    # max number of characters in posts titles to display
+    14
+  end
+
+  def post_title_header_labels
+    %w(1 2 3).freeze
+  end
+
   def display_distinct_label_and_check_box
     tag.section
       label_tag(:distinct, 'Return distinct records?') +
@@ -39,6 +48,9 @@ module UsersHelper
   def display_sort_column_headers(search)
     model_fields.reduce(String.new) do |string, field|
       string << (tag.th sort_link(search, field, {}, method: action))
+    end +
+    post_title_header_labels.reduce(String.new) do |str, i|
+      str << (tag.th "Post #{i} title")
     end
   end
 
@@ -51,6 +63,14 @@ module UsersHelper
   def display_search_results_row(object)
     model_fields.reduce(String.new) do |string, field|
       string << (tag.td object.send(field))
+    end
+    .html_safe +
+    display_user_posts(object.posts)
+  end
+
+  def display_user_posts(posts)
+    posts.reduce(String.new) do |string, post|
+      string << (tag.td truncate(post.title, length: post_title_length))
     end
     .html_safe
   end
