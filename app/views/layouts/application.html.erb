@@ -1,27 +1,21 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>RansackDemo</title>
-  <%= stylesheet_link_tag "application" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-  <script type="text/javascript">
-    $(function() {
-      <%= yield :document_ready %>
-    });
-  </script>
+<%= tag.html do %>
+  <%= tag.head do %>
+    <%= tag.title 'RansackDemo' %>
+    <%= stylesheet_link_tag 'application' %>
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tags %>
+    <script type="text/javascript">
+      $(function() {
+        <%= yield :document_ready %>
+      });
+    </script>
+  <% end %>
 
-</head>
-<body>
+  <%= tag.body do %>
 
-  <%= yield %>
+    <%= yield %>
 
-  <br>
-  <small>
-    <a href='https://github.com/activerecord-hackery/ransack_demo'>
-	  Source code for this demo available on GitHub
-    </a>
-  </small>
-
-</body>
-</html>
+    <%= tag.footer github_link %>
+  <% end %>
+<% end %>
