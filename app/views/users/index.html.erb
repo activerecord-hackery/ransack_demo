@@ -27,8 +27,7 @@
     <% end %>
   <% end %>
 
-  <%= label_tag :distinct, 'Return distinct records?' %>
-  <%= check_box_tag :distinct, '1', params[:distinct].to_i == 1 %>
+  <%= display_distinct_label_and_check_box %>
   <%= f.submit %>
 <% end %>
 

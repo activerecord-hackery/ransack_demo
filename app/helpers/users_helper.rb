@@ -10,6 +10,12 @@ module UsersHelper
     10
   end
 
+  def display_distinct_label_and_check_box
+    tag.section
+      label_tag(:distinct, 'Return distinct records?') +
+      check_box_tag(:distinct, '1', params[:distinct].to_i == 1)
+  end
+
   def display_query_sql(users)
     tag.p('SQL:') + tag.code(users.to_sql)
   end
