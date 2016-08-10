@@ -46,4 +46,9 @@ module ApplicationHelper
       sort:      'Add Sort',
       grouping:  'Add Condition Group' }.freeze
   end
+
+  def github_link
+    link_to 'Source code for this demo available on GitHub',
+      'https://github.com/activerecord-hackery/ransack_demo'
+  end
 end
