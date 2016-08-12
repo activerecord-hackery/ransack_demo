@@ -6,7 +6,7 @@ gem 'rails', github: 'rails/rails'
 
 # gem 'rails', '5.0.1'
 
-gem 'sqlite3'
+gem 'pg'
 gem 'ransack'
 
 group :assets do
