@@ -29,7 +29,9 @@ FactoryGirl.define do
   end
 
   factory :post do
-    title     { Faker::Lorem.sentence }
+    title     { Faker::Lorem.sentence(
+      word_count = 1, supplemental = false, random_words_to_add = 0)
+    }
     body      { Faker::Lorem.paragraph }
     tag_names { Faker::Lorem.words(3).join(',') }
   end
@@ -48,4 +50,10 @@ end
     post = FactoryGirl.create(:post, user: user)
     3.times { FactoryGirl.create(:comment, post: post) }
   end
+end
+
+User.all.each do |user|
+  r = rand(100_000)
+  created, updated = r.minutes.from_now, (r + rand(10_000)).minutes.from_now
+  user.update_columns(created_at: created, updated_at: updated)
 end
