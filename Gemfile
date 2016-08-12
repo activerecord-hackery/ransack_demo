@@ -1,4 +1,5 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
+ruby '2.3.1'
 
 # Bundle Rails master:
 gem 'rails', github: 'rails/rails'
