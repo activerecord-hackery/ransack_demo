@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  include UsersHelper
+
   def index
     @search = ransack_params
     @users  = ransack_result
@@ -16,10 +18,10 @@ class UsersController < ApplicationController
     end
 
     def ransack_result
-      if params[:distinct].to_i.zero?
-        @search.result
-      else
+      if user_wants_distinct_results?
         @search.result(distinct: true)
+      else
+        @search.result
       end
     end
 end
