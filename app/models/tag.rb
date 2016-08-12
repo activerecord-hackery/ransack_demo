@@ -1,3 +1,3 @@
-class Tag < ActiveRecord::Base
+class Tag < ApplicationRecord
   has_many :taggings
 end
