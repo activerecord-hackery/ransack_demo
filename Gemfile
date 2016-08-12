@@ -18,16 +18,14 @@ end
 gem 'jquery-rails'
 gem 'puma'
 
-group :development do
-  gem 'faker'
-end
+gem 'factory_girl'
+gem 'faker'
 
 group :test do
   gem 'turn', require: false
 end
 
 group :development, :test do
-  gem 'factory_girl'
   gem 'pry-awesome_print'
   gem 'pry-highlight'
   gem 'pry-rails'
