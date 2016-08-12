@@ -18,10 +18,6 @@ class UsersController < ApplicationController
     end
 
     def ransack_result
-      if user_wants_distinct_results?
-        @search.result(distinct: true)
-      else
-        @search.result
-      end
+      @search.result(distinct: user_wants_distinct_results?)
     end
 end
