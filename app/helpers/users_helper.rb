@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 module UsersHelper
-  def model_fields
-    # which fields to display and sort by
+  def user_column_headers
+    %i(id first_name last_name email created_at updated_at).freeze
+  end
+
+  def user_column_fields
     %i(id first_name last_name email created updated).freeze
   end
 
@@ -50,7 +53,7 @@ module UsersHelper
   end
 
   def display_sort_column_headers(search)
-    model_fields.reduce(String.new) do |string, field|
+    user_column_headers.reduce(String.new) do |string, field|
       string << (tag.th sort_link(search, field, {}, method: action))
     end +
     post_title_header_labels.reduce(String.new) do |str, i|
@@ -65,7 +68,7 @@ module UsersHelper
   end
 
   def display_search_results_row(object)
-    model_fields.reduce(String.new) do |string, field|
+    user_column_fields.reduce(String.new) do |string, field|
       string << (tag.td object.send(field))
     end
     .html_safe +
