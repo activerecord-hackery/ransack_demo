@@ -4,13 +4,7 @@ This is a quick demonstration of how you might use
 [Ransack](https://github.com/activerecord-hackery/ransack) in a Rails 5
 application to create an "advanced" search form, with nesting, etc.
 
-This isn't quite as polished as I'd like it to be, but I thought it would be
-best to get it up on GitHub in its current state since I've had some requests
-for the code.
-
-I'll clean it up and add to it as Ransack evolves.
-
-In the meantime, the main things you'll want to note are:
+The main things you'll want to note are:
 
 * app/models/user.rb - Demonstration of using a "ransacker" (a virtual,
   searchable "column") to allow searching via full name, from concatenated first
@@ -26,4 +20,4 @@ In the meantime, the main things you'll want to note are:
   addition/removal of fields, as well as nesting fields (adding a grouping from
   the previously mentioned grouping template)
 
-Let me know if you have any questions, and happy ransacking!
+Let us know if you have any questions, and happy ransacking!
