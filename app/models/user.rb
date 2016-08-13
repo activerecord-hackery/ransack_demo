@@ -4,12 +4,16 @@ class User < ApplicationRecord
   has_many :comments
   has_and_belongs_to_many :roles
 
+  def datetime_format
+    "%d/%m/%y %H:%M"
+  end
+
   def created
-    created_at.to_s(:long)
+    created_at.strftime(datetime_format)
   end
 
   def updated
-    updated_at.to_s(:long)
+    updated_at.strftime(datetime_format)
   end
 
   ransacker :full_name do |parent|
