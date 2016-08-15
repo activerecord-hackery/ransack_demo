@@ -16,6 +16,8 @@ class User < ApplicationRecord
     updated_at.strftime(datetime_format)
   end
 
+  private
+
   # Whitelist the User model attributes for sorting, except +password_digest+.
   #
   # The +full_name+ ransacker is also not included because error-prone in SQL
@@ -32,6 +34,9 @@ class User < ApplicationRecord
     ransortable_attributes + _ransackers.keys
   end
 
+  # Demonstration of using a "ransacker" (a virtual, searchable "column") to
+  # allow searching via the full name from concatenated first and last names.
+  #
   ransacker :full_name do |parent|
     Arel::Nodes::InfixOperation.new('||',
       Arel::Nodes::InfixOperation.new('||',
