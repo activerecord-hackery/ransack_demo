@@ -25,6 +25,13 @@ class User < ApplicationRecord
     column_names - ['password_digest']
   end
 
+  # Whitelist the User model attributes for search, except +password_digest+,
+  # as above. The +full_name+ ransacker below is included via +_ransackers.keys+
+  #
+  def self.ransackable_attributes(auth_object = nil)
+    ransortable_attributes + _ransackers.keys
+  end
+
   ransacker :full_name do |parent|
     Arel::Nodes::InfixOperation.new('||',
       Arel::Nodes::InfixOperation.new('||',
