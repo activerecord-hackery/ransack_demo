@@ -16,6 +16,11 @@ class User < ApplicationRecord
     updated_at.strftime(datetime_format)
   end
 
+  def self.ransortable_attributes(auth_object = nil)
+    # whitelist the User model attributes for sorting, but not #full_name
+    column_names
+  end
+
   ransacker :full_name do |parent|
     Arel::Nodes::InfixOperation.new('||',
       Arel::Nodes::InfixOperation.new('||',
