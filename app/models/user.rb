@@ -16,9 +16,13 @@ class User < ApplicationRecord
     updated_at.strftime(datetime_format)
   end
 
+  # Whitelist the User model attributes for sorting, except +password_digest+.
+  #
+  # The +full_name+ ransacker is also not included because error-prone in SQL
+  # ORDER clauses and provided no additional functionality over +first_name+.
+  #
   def self.ransortable_attributes(auth_object = nil)
-    # whitelist the User model attributes for sorting, but not #full_name
-    column_names
+    column_names - ['password_digest']
   end
 
   ransacker :full_name do |parent|
