@@ -1,5 +1,5 @@
 <%= tag.h1 'Search Users' %>
-<%= tag.header link_to('Advanced mode', advanced_search_users_path) %>
+<%= tag.header link_to_toggle_search_modes %>
 
 <%= search_form_for @search do |f| %>
 

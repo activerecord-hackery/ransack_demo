@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 module UsersHelper
+  def link_to_toggle_search_modes
+    if action_name == 'advanced_search'
+      link_to('Simple mode', users_path)
+    else
+      link_to('Advanced mode', advanced_search_users_path)
+    end
+  end
+
   def user_column_headers
     %i(id first_name last_name email created_at updated_at).freeze
   end
