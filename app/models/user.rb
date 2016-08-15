@@ -16,6 +16,10 @@ class User < ApplicationRecord
     updated_at.strftime(datetime_format)
   end
 
+  def self.postgres_version
+    select('version()').first.version.first(16)
+  end
+
   private
 
   # Whitelist the User model attributes for sorting, except +password_digest+.

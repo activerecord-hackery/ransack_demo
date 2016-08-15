@@ -47,7 +47,13 @@ module ApplicationHelper
       grouping:  'Add Condition Group' }.freeze
   end
 
-  def github_link
+  def app_info
+    @@app_info ||=
+      "Demo app running on Ruby #{RUBY_VERSION}, Rails #{Rails::VERSION::STRING
+      } and #{User.postgres_version} - #{source_code_link}".html_safe
+  end
+
+  def source_code_link
     link_to 'Source code for this demo available on GitHub',
       'https://github.com/activerecord-hackery/ransack_demo'
   end
