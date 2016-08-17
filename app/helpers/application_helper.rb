@@ -23,7 +23,7 @@ module ApplicationHelper
   end
 
   def button_to_remove_fields
-    tag.button 'Remove', class: 'remove_fields'
+    tag.button 'Remove', class: 'remove_fields btn'
   end
 
   def button_to_add_fields(f, type)
@@ -32,12 +32,12 @@ module ApplicationHelper
       render(name, f: builder)
     end
 
-    tag.button button_label[type], class: 'add_fields', 'data-field-type': type,
+    tag.button button_label[type], class: 'add_fields btn', 'data-field-type': type,
       'data-content': "#{fields}"
   end
 
   def button_to_nest_fields(type)
-    tag.button button_label[type], class: 'nest_fields', 'data-field-type': type
+    tag.button button_label[type], class: 'nest_fields btn', 'data-field-type': type
   end
 
   def button_label
