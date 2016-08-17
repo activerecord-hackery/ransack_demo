@@ -2,9 +2,9 @@
 module UsersHelper
   def link_to_toggle_search_modes
     if action_name == 'advanced_search'
-      link_to('Simple mode', users_path)
+      link_to('Go to Simple mode', users_path)
     else
-      link_to('Advanced mode', advanced_search_users_path)
+      link_to('Go to Advanced mode', advanced_search_users_path)
     end
   end
 
