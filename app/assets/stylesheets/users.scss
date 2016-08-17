@@ -2,23 +2,40 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+header {
+  font-size: 1em;
+  margin-bottom: 1.25em;
+}
 body {
   font-family: "Helvetica", "Arial", sans-serif;
   margin: 0 auto;
   max-width: 76em;
   line-height: 1.5;
-  padding: 4em 1em;
+  padding: 1em 1em;
   color: #555;
 }
-h2 {
-  margin-top: 1em;
-  padding-top: 1em;
+h1 {
+  margin: 0 0 0.5em;
 }
 h1, h2, strong, code {
   color: #333;
 }
+h2 {
+  font-size: 1.25em;
+  margin-top: 0.75em;
+  padding-top: 1em;
+}
 a {
   color: blue;
+}
+section {
+  margin-top: 0.75em;
+}
+fieldset {
+  font-size: 1em;
+  margin-top: 0.75em;
+  border: 2px #aaa solid;
+  border-radius: 10px;
 }
 code {
   background: #f5f7f9;
@@ -32,15 +49,21 @@ th, td {
   padding: 0 8px;
   text-align: left;
 }
+button {
+  line-height: 2;
+}
 input[type='checkbox'] {
   margin: 1em;
 }
 input[type='submit'] {
-  line-height: 2.5;
-}
-button {
-  line-height: 2;
+  font-size: 2em;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
 }
 footer {
+  font-size: 1em;
   margin-top: 2em;
+}
+.add_fields {
+  margin-top: 1em;
 }
