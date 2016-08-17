@@ -26,7 +26,7 @@ h2 {
   padding-top: 1em;
 }
 a {
-  color: blue;
+  color: rgba(150, 150, 200, 1);
 }
 section {
   margin-top: 0.75em;
@@ -34,9 +34,48 @@ section {
 fieldset {
   font-size: 1em;
   margin-top: 0.75em;
-  border: 2px #aaa solid;
-  border-radius: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(150, 150, 200, 0.3);
+  overflow: hidden;
 }
+
+.btn {
+  background-color: #fff;
+  color: #aaa;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 6px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.btn--invert {
+  background-color: #aaa;
+  color: #fff;
+}
+
+.btn:hover {
+  background-color: #333;
+  color: white;
+}
+
+.btn--invert:hover {
+  background-color: #bbb;
+}
+
+
+legend {
+  margin-left:-12px;
+  margin-right:-12px;
+  padding: 12px;
+  background-color: rgba(150, 150, 200, 1);
+  color: white;
+  border-radius: 0px;
+  width: 100%;
+}
+
 code {
   background: #f5f7f9;
   padding: 8px;
@@ -49,16 +88,24 @@ th, td {
   padding: 0 8px;
   text-align: left;
 }
-button {
+table {
+  border-horizontal-spacing: 0px;
+  -webkit-border-horizontal-spacing: 0px;
+  -webkit-border-vertical-spacing: 0px;
+}
+tbody tr:nth-child(odd) {
+  background-color: #ececec;
+}
+
+tr {
+  line-height: 2.5
+}
+
+.btn {
   line-height: 2;
 }
 input[type='checkbox'] {
   margin: 1em;
-}
-input[type='submit'] {
-  font-size: 2em;
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
 }
 footer {
   font-size: 1em;

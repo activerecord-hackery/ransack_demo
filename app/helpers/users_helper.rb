@@ -36,8 +36,8 @@ module UsersHelper
 
   def display_distinct_label_and_check_box
     tag.section do
-      label_tag(:distinct, 'Return distinct records?') +
-      check_box_tag(:distinct, '1', user_wants_distinct_results?)
+      check_box_tag(:distinct, '1', user_wants_distinct_results?) +
+      label_tag(:distinct, 'Return distinct records')
     end
   end
 
