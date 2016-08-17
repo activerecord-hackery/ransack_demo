@@ -48,8 +48,9 @@ module ApplicationHelper
   end
 
   def app_info
-    @@app_info ||=
-      "Demo app running on Ruby #{RUBY_VERSION}, Rails #{Rails::VERSION::STRING
+    @@app_info ||= "#{
+      tag.strong 'Ransack demo app'
+      } running on Ruby #{RUBY_VERSION}, Rails #{Rails::VERSION::STRING
       } and #{User.postgres_version} - #{source_code_link}".html_safe
   end
 
