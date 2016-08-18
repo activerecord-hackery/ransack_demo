@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 module UsersHelper
+  def action
+    if action_name == 'advanced_search'
+      :post
+    else
+      :get
+    end
+  end
+
   def link_to_toggle_search_modes
     if action_name == 'advanced_search'
       link_to('Go to Simple mode', users_path)
@@ -30,15 +38,15 @@ module UsersHelper
     %w(1 2 3).freeze
   end
 
-  def user_wants_distinct_results?
-    params[:distinct].to_i == 1
-  end
-
   def display_distinct_label_and_check_box
     tag.section do
       check_box_tag(:distinct, '1', user_wants_distinct_results?) +
       label_tag(:distinct, 'Return distinct records')
     end
+  end
+
+  def user_wants_distinct_results?
+    params[:distinct].to_i == 1
   end
 
   def display_query_sql(users)
@@ -50,14 +58,6 @@ module UsersHelper
       "Your first #{results_limit} results out of #{count} total"
     else
       "Your #{pluralize(count, 'result')}"
-    end
-  end
-
-  def action
-    if action_name == 'advanced_search'
-      :post
-    else
-      :get
     end
   end
 
