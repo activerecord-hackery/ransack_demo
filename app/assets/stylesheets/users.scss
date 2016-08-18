@@ -1,11 +1,11 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
 header {
   font-size: 1em;
   margin-bottom: 1.25em;
 }
+
 body {
   font-family: "Helvetica", "Arial", sans-serif;
   margin: 0 auto;
@@ -14,23 +14,29 @@ body {
   padding: 1em 1em;
   color: #555;
 }
+
 h1 {
   margin: 0 0 0.5em;
 }
+
 h1, h2, strong, code {
   color: #333;
 }
+
 h2 {
   font-size: 1.25em;
   margin-top: 0.75em;
   padding-top: 1em;
 }
-a {
-  color: rgba(150, 150, 200, 1);
-}
+
 section {
   margin-top: 0.75em;
 }
+
+a {
+  color: rgba(150, 150, 200, 1);
+}
+
 fieldset {
   font-size: 1em;
   margin-top: 0.75em;
@@ -38,6 +44,61 @@ fieldset {
   border-radius: 5px;
   background-color: rgba(150, 150, 200, 0.3);
   overflow: hidden;
+}
+
+legend {
+  margin-left:-12px;
+  margin-right:-12px;
+  padding: 12px;
+  background-color: rgba(150, 150, 200, 1);
+  color: white;
+  border-radius: 0px;
+  width: 100%;
+}
+
+input[type='checkbox'] {
+  margin: 1em;
+}
+
+code {
+  background: #f5f7f9;
+  padding: 8px;
+  line-height: 2.25;
+  border: 1.5px solid #d8dee9;
+  border-radius: 4px;
+  vertical-align: text-bottom;
+}
+
+table {
+  border-horizontal-spacing: 0px;
+  -webkit-border-horizontal-spacing: 0px;
+  -webkit-border-vertical-spacing: 0px;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #ececec;
+}
+
+tr {
+  line-height: 2.5
+}
+
+th, td {
+  padding: 0 8px;
+  text-align: left;
+}
+
+footer {
+  font-size: 1em;
+  margin-top: 2em;
+}
+
+.add_fields {
+  margin-top: 1em;
+}
+
+.btn {
+  line-height: 2;
 }
 
 .btn {
@@ -63,54 +124,4 @@ fieldset {
 
 .btn--invert:hover {
   background-color: #bbb;
-}
-
-
-legend {
-  margin-left:-12px;
-  margin-right:-12px;
-  padding: 12px;
-  background-color: rgba(150, 150, 200, 1);
-  color: white;
-  border-radius: 0px;
-  width: 100%;
-}
-
-code {
-  background: #f5f7f9;
-  padding: 8px;
-  line-height: 2.25;
-  border: 1.5px solid #d8dee9;
-  border-radius: 4px;
-  vertical-align: text-bottom;
-}
-th, td {
-  padding: 0 8px;
-  text-align: left;
-}
-table {
-  border-horizontal-spacing: 0px;
-  -webkit-border-horizontal-spacing: 0px;
-  -webkit-border-vertical-spacing: 0px;
-}
-tbody tr:nth-child(odd) {
-  background-color: #ececec;
-}
-
-tr {
-  line-height: 2.5
-}
-
-.btn {
-  line-height: 2;
-}
-input[type='checkbox'] {
-  margin: 1em;
-}
-footer {
-  font-size: 1em;
-  margin-top: 2em;
-}
-.add_fields {
-  margin-top: 1em;
 }
