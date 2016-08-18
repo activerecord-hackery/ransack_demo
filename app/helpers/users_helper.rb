@@ -38,6 +38,18 @@ module UsersHelper
     %w(1 2 3).freeze
   end
 
+  def user_posts_and_comments
+    %w(posts comments).freeze
+  end
+
+  def condition_fields
+    %w(fields condition).freeze
+  end
+
+  def value_fields
+    %w(fields value).freeze
+  end
+
   def display_distinct_label_and_check_box
     tag.section do
       check_box_tag(:distinct, '1', user_wants_distinct_results?) +
