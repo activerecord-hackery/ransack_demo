@@ -56,10 +56,6 @@ legend {
   width: 100%;
 }
 
-input[type='checkbox'] {
-  margin: 1em;
-}
-
 code {
   background: #f5f7f9;
   padding: 8px;
@@ -125,3 +121,8 @@ footer {
 .btn--invert:hover {
   background-color: #bbb;
 }
+
+.cbx {
+  margin: 1em;
+}
+
