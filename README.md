@@ -6,11 +6,11 @@ application to create an "advanced" search form, with nesting, etc.
 
 The main things you'll want to note are:
 
-* app/models/user.rb - Demonstration of using a "ransacker" (a virtual,
-  searchable "column") to allow searching via full name, from concatenated first
-  and last names.
-* app/models/user.rb - Demonstration of whitelisting attributes allowed for
-  searching (using `ransackable_attributes`) and for sorting (using `ransortable_attributes`).
+* app/models/user.rb - Demonstration of:
+  - using a "ransacker" (a virtual, searchable "column") to allow searching on
+    full names from concatenated first and last names.
+  - whitelisting attributes allowed for searching using `ransackable_attributes`.
+  - whitelisting attributes allowed for sorting using `ransortable_attributes`.
 * app/views/users/ - Search form and various partials used in dynamic form.
 * app/helpers/application_helper.rb - `setup_search_form`, which creates a
   Javascript search object with a grouping template, since we can't dynamically
