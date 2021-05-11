@@ -17,7 +17,7 @@ class User < ApplicationRecord
   end
 
   def self.postgres_version
-    select('version()').first.version.first(16)
+    connection.execute('select version()').to_a.first["version"].first(16)
   end
 
   private
