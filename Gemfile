@@ -1,9 +1,6 @@
 source 'https://rubygems.org'
-ruby '2.3.1'
 
-# Bundle Rails master:
-gem 'rails', github: 'rails/rails'
-# gem 'rails', '5.0.1'
+gem 'rails', '~> 6.0.0'
 
 # Use PostgreSQL as the database for Active Record
 gem 'pg', '~> 0.18'
@@ -34,7 +31,7 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', github: 'rails/web-console'
+  gem 'web-console'
   gem 'listen', '~> 3.0.5'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
