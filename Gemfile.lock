@@ -100,7 +100,7 @@ GEM
     nokogiri (1.13.3)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    pg (0.18.4)
+    pg (0.21.0)
     puma (4.3.11)
       nio4r (~> 2.0)
     racc (1.6.0)
