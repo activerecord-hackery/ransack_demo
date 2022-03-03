@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class User < ApplicationRecord
   has_many :posts
+  has_many :other_posts, class_name: "Post"
   has_many :comments
   has_and_belongs_to_many :roles
 
