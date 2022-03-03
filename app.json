@@ -1,0 +1,50 @@
+{
+  "name": "ransack_demo",
+  "description": "A demo app using Ransack to create advanced search forms",
+  "env": {
+    "LANG": {
+      "required": true,
+      "value": "en_US.UTF-8"
+    },
+    "RACK_ENV": {
+      "required": true,
+      "value": "production"
+    },
+    "RAILS_ENV": {
+      "required": true,
+      "value": "production"
+    }
+  },
+  "environments": {
+    "review": {
+      "env": {
+        "LANG": {
+          "required": true,
+          "value": "en_US.UTF-8"
+        },
+        "RACK_ENV": {
+          "required": true,
+          "value": "production"
+        },
+        "RAILS_ENV": {
+          "required": true,
+          "value": "production"
+        }
+      }
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ],
+  "stack": "heroku-20"
+}
