@@ -39,7 +39,7 @@ module UsersHelper
   end
 
   def user_posts_and_comments
-    %w(posts comments).freeze
+    %w(posts other_posts comments).freeze
   end
 
   def condition_fields
