@@ -2,10 +2,10 @@ source 'https://rubygems.org'
 
 ruby "#{File.read('.ruby-version').strip}"
 
-gem 'rails', '~> 6.0.0'
+gem 'rails', '~> 6.1.0'
 
 # Use PostgreSQL as the database for Active Record
-gem 'pg', '~> 0.18'
+gem 'pg', '~> 1.0'
 # Use Puma as the app server
 gem 'puma', '~> 4.3'
 # Use SCSS for stylesheets
