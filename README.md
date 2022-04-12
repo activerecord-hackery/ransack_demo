@@ -18,8 +18,8 @@ The main things you'll want to note are:
   would end up in infinite recursion). The rest of the methods in here are
   pretty much the same as the nested field helpers in Ryan Bates'
   [Railscast #197](http://railscasts.com/episodes/197-nested-model-form-part-2).
-* app/assets/javascripts/search.js.coffee - CoffeeScript to handle
-  addition/removal of fields, as well as nesting fields (adding a grouping from
-  the previously mentioned grouping template)
+* app/assets/javascripts/search.js - JS to handle addition/removal of fields, as
+  well as nesting fields (adding a grouping from the previously mentioned
+  grouping template)
 
 Let us know if you have any questions, and happy ransacking!
