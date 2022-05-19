@@ -4,5 +4,5 @@ Rails.application.routes.draw do
           on: :collection, via: [:get, :post], as: :advanced_search
   end
   root to: "users#index"
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
