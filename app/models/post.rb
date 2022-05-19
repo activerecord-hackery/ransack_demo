@@ -7,7 +7,7 @@ class Post < ApplicationRecord
   validates_presence_of :user
 
   ransacker :title_diddly do |parent|
-    Arel::Nodes::InfixOperation.new('||', parent.table[:title], '-diddly')
+    Arel::Nodes::InfixOperation.new("||", parent.table[:title], "-diddly")
   end
 
   def tag_names=(names)
@@ -17,6 +17,6 @@ class Post < ApplicationRecord
   end
 
   def tag_names
-    tags.join(', ')
+    tags.join(", ")
   end
 end
