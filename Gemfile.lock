@@ -149,10 +149,6 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    spring (2.1.1)
-    spring-watcher-listen (2.0.1)
-      listen (>= 2.7, < 4.0)
-      spring (>= 1.2, < 3.0)
     sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -190,8 +186,6 @@ DEPENDENCIES
   rails (~> 6.1.0)
   ransack
   sass-rails (~> 5.0)
-  spring
-  spring-watcher-listen (~> 2.0.0)
   uglifier (>= 1.3.0)
   web-console
 
