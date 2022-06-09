@@ -18,7 +18,7 @@ class User < ApplicationRecord
   end
 
   def self.postgres_version
-    connection.execute('select version()').to_a.first["version"].first(16)
+    connection.execute("select version()").to_a.first["version"].first(16)
   end
 
   private
@@ -29,7 +29,7 @@ class User < ApplicationRecord
   # ORDER clauses and provided no additional functionality over +first_name+.
   #
   def self.ransortable_attributes(auth_object = nil)
-    column_names - ['password_digest']
+    column_names - ["password_digest"]
   end
 
   # Whitelist the User model attributes for search, except +password_digest+,
@@ -43,9 +43,9 @@ class User < ApplicationRecord
   # allow searching via the full name from concatenated first and last names.
   #
   ransacker :full_name do |parent|
-    Arel::Nodes::InfixOperation.new('||',
-      Arel::Nodes::InfixOperation.new('||',
-        parent.table[:first_name], Arel::Nodes.build_quoted(' ')),
+    Arel::Nodes::InfixOperation.new("||",
+      Arel::Nodes::InfixOperation.new("||",
+        parent.table[:first_name], Arel::Nodes.build_quoted(" ")),
       parent.table[:last_name])
   end
 end

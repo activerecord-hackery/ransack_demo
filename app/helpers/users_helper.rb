@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module UsersHelper
   def action
-    if action_name == 'advanced_search'
+    if action_name == "advanced_search"
       :post
     else
       :get
@@ -9,10 +9,10 @@ module UsersHelper
   end
 
   def link_to_toggle_search_modes
-    if action_name == 'advanced_search'
-      link_to('Go to Simple mode', users_path)
+    if action_name == "advanced_search"
+      link_to("Go to Simple mode", users_path)
     else
-      link_to('Go to Advanced mode', advanced_search_users_path)
+      link_to("Go to Advanced mode", advanced_search_users_path)
     end
   end
 
@@ -52,8 +52,8 @@ module UsersHelper
 
   def display_distinct_label_and_check_box
     tag.section do
-      check_box_tag(:distinct, '1', user_wants_distinct_results?, class: :cbx) +
-      label_tag(:distinct, 'Return distinct records')
+      check_box_tag(:distinct, "1", user_wants_distinct_results?, class: :cbx) +
+      label_tag(:distinct, "Return distinct records")
     end
   end
 
@@ -62,7 +62,7 @@ module UsersHelper
   end
 
   def display_query_sql(users)
-    tag.p('SQL:') + tag.code(users.to_sql)
+    tag.p("SQL:") + tag.code(users.to_sql)
   end
 
   def display_results_header(count)

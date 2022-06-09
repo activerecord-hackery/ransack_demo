@@ -2,8 +2,8 @@
 module ApplicationHelper
   def setup_search_form(builder)
     fields = builder.grouping_fields builder.object.new_grouping,
-      object_name: 'new_object_name', child_index: 'new_grouping' do |f|
-      render('grouping_fields', f: f)
+      object_name: "new_object_name", child_index: "new_grouping" do |f|
+      render("grouping_fields", f: f)
     end
     content_for :document_ready, %Q{
       var search = new Search({grouping: "#{escape_javascript(fields)}"});
@@ -23,7 +23,7 @@ module ApplicationHelper
   end
 
   def button_to_remove_fields
-    tag.button 'Remove', class: 'remove_fields btn'
+    tag.button "Remove", class: "remove_fields btn"
   end
 
   def button_to_add_fields(f, type)
@@ -32,19 +32,19 @@ module ApplicationHelper
       render(name, f: builder)
     end
 
-    tag.button button_label[type], class: 'add_fields btn', 'data-field-type': type,
+    tag.button button_label[type], class: "add_fields btn", 'data-field-type': type,
       'data-content': "#{fields}"
   end
 
   def button_to_nest_fields(type)
-    tag.button button_label[type], class: 'nest_fields btn', 'data-field-type': type
+    tag.button button_label[type], class: "nest_fields btn", 'data-field-type': type
   end
 
   def button_label
-    { value:     'Add Value',
-      condition: 'Add Condition',
-      sort:      'Add Sort',
-      grouping:  'Add Condition Group' }.freeze
+    { value:     "Add Value",
+      condition: "Add Condition",
+      sort:      "Add Sort",
+      grouping:  "Add Condition Group" }.freeze
   end
 
   def app_info
@@ -55,7 +55,7 @@ module ApplicationHelper
   end
 
   def source_code_link
-    link_to 'Source code for this demo available on GitHub',
-      'https://github.com/activerecord-hackery/ransack_demo'
+    link_to "Source code for this demo available on GitHub",
+      "https://github.com/activerecord-hackery/ransack_demo"
   end
 end
