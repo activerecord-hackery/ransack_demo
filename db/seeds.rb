@@ -30,10 +30,10 @@ FactoryGirl.define do
 
   factory :post do
     title     { Faker::Lorem.sentence(
-      word_count = 1, supplemental = false, random_words_to_add = 0)
+      word_count: 1, supplemental: false, random_words_to_add: 0)
     }
     body      { Faker::Lorem.paragraph }
-    tag_names { Faker::Lorem.words(3).join(",") }
+    tag_names { Faker::Lorem.words(number: 3).join(",") }
   end
 
   commenters = 1.upto(3).map { FactoryGirl.create(:user, roles: [role[:user]]) }
