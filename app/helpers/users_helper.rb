@@ -75,7 +75,7 @@ module UsersHelper
 
   def display_sort_column_headers(search)
     user_column_headers.reduce(String.new) do |string, field|
-      string << (tag.th sort_link(search, field, {}, method: action))
+      string << (tag.th sort_link(search, field, method: action))
     end +
     post_title_header_labels.reduce(String.new) do |str, i|
       str << (tag.th "Post #{i} title")
