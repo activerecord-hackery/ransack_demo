@@ -1,4 +1,6 @@
 class Post < ApplicationRecord
+  extend PostsMixin
+
   belongs_to :user
   has_many :comments
   has_many :taggings, as: :taggable
@@ -18,5 +20,11 @@ class Post < ApplicationRecord
 
   def tag_names
     tags.join(", ")
+  end
+
+  private
+
+  def self.ransackable_attributes(_auth_object)
+    ["title"]
   end
 end
