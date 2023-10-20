@@ -1,7 +1,7 @@
 # Ransack Demo Application
 
 This is a quick demonstration of how you might use
-[Ransack](https://github.com/activerecord-hackery/ransack) in a Rails 5
+[Ransack](https://github.com/activerecord-hackery/ransack) in a Rails 7
 application to create an "advanced" search form, with nesting, etc.
 
 The main things you'll want to note are:
