@@ -23,7 +23,7 @@ class User < ApplicationRecord
 
   private
 
-  # Whitelist the User model attributes for sorting, except +password_digest+.
+  # Allowlist the User model attributes for sorting, except +password_digest+.
   #
   # The +full_name+ ransacker is also not included because error-prone in SQL
   # ORDER clauses and provided no additional functionality over +first_name+.
@@ -32,11 +32,17 @@ class User < ApplicationRecord
     column_names - ["password_digest"]
   end
 
-  # Whitelist the User model attributes for search, except +password_digest+,
+  # Allowlist the User model attributes for search, except +password_digest+,
   # as above. The +full_name+ ransacker below is included via +_ransackers.keys+
   #
   def self.ransackable_attributes(auth_object = nil)
     ransortable_attributes + _ransackers.keys
+  end
+
+  # Allowlist the User model associations for sorting, only posts.
+  #
+  def self.ransackable_associations(auth_object = nil)
+    ["posts", "other_posts"]
   end
 
   # Demonstration of using a "ransacker" (a virtual, searchable "column") to
