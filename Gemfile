@@ -21,7 +21,7 @@ gem "jquery-rails"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem "ransack"
-gem "factory_girl"
+gem "factory_bot"
 gem "faker"
 
 group :development, :test do

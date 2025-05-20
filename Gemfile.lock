@@ -93,8 +93,8 @@ GEM
     erb (5.0.1)
     erubi (1.12.0)
     execjs (2.8.1)
-    factory_girl (4.9.0)
-      activesupport (>= 3.0.0)
+    factory_bot (6.5.1)
+      activesupport (>= 6.1.0)
     faker (2.20.0)
       i18n (>= 1.8.11, < 2)
     ffi (1.15.5)
@@ -263,7 +263,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  factory_girl
+  factory_bot
   faker
   jquery-rails
   listen (~> 3.0.5)
