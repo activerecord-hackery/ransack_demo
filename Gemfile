@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
-ruby "#{File.read('.ruby-version').strip}"
+ruby file: ".ruby-version"
 
-gem "rails", "~> 7.0.0"
+gem "rails", "~> 7.1.0"
 
 # Use PostgreSQL as the database for Active Record
 gem "pg", "~> 1.0"
@@ -21,7 +21,7 @@ gem "jquery-rails"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem "ransack"
-gem "factory_girl"
+gem "factory_bot"
 gem "faker"
 
 group :development, :test do
