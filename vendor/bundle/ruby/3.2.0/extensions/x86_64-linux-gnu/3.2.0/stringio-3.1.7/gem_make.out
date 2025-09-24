@@ -1,0 +1,19 @@
+current directory: /home/runner/work/ransack_demo/ransack_demo/vendor/bundle/ruby/3.2.0/gems/stringio-3.1.7/ext/stringio
+/usr/bin/ruby3.2 -I/usr/lib/ruby/vendor_ruby extconf.rb
+checking for rb_io_mode_t in ruby/io.h... no
+creating Makefile
+
+current directory: /home/runner/work/ransack_demo/ransack_demo/vendor/bundle/ruby/3.2.0/gems/stringio-3.1.7/ext/stringio
+make DESTDIR\= sitearchdir\=./.gem.20250924-4481-74jnn6 sitelibdir\=./.gem.20250924-4481-74jnn6 clean
+
+current directory: /home/runner/work/ransack_demo/ransack_demo/vendor/bundle/ruby/3.2.0/gems/stringio-3.1.7/ext/stringio
+make DESTDIR\= sitearchdir\=./.gem.20250924-4481-74jnn6 sitelibdir\=./.gem.20250924-4481-74jnn6
+compiling stringio.c
+linking shared-object stringio.so
+
+current directory: /home/runner/work/ransack_demo/ransack_demo/vendor/bundle/ruby/3.2.0/gems/stringio-3.1.7/ext/stringio
+make DESTDIR\= sitearchdir\=./.gem.20250924-4481-74jnn6 sitelibdir\=./.gem.20250924-4481-74jnn6 install
+/usr/bin/install -c -m 0755 stringio.so ./.gem.20250924-4481-74jnn6
+
+current directory: /home/runner/work/ransack_demo/ransack_demo/vendor/bundle/ruby/3.2.0/gems/stringio-3.1.7/ext/stringio
+make DESTDIR\= sitearchdir\=./.gem.20250924-4481-74jnn6 sitelibdir\=./.gem.20250924-4481-74jnn6 clean

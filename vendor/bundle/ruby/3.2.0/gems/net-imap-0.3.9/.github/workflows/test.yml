@@ -1,0 +1,38 @@
+name: ubuntu
+
+on: [push, pull_request]
+
+jobs:
+  ruby-versions:
+    uses: ruby/actions/.github/workflows/ruby_versions.yml@master
+    with:
+      engine: cruby
+      min_version: 2.6
+
+  build:
+    needs: ruby-versions
+    name: build (${{ matrix.ruby }} / ${{ matrix.os }})
+    strategy:
+      matrix:
+        ruby: ${{ fromJson(needs.ruby-versions.outputs.versions) }}
+        os: [ ubuntu-latest, macos-latest ]
+        experimental: [false]
+        include:
+#          - ruby: 2.6
+#            os: ubuntu-latest
+#            experimental: true
+          - ruby: 2.6
+            os: macos-latest
+            experimental: false
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+    - name: Install dependencies
+      run: bundle install
+    - name: Run test
+      run: rake test
