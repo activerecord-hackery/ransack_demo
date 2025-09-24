@@ -1,32 +1,75 @@
-<%= tag.h1 'Advanced User Search' %>
-<%= tag.header link_to_toggle_search_modes %>
+<div class="space-y-8">
+  <!-- Page header -->
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900">Advanced User Search</h1>
+      <p class="mt-2 text-sm text-gray-700">Build complex search queries with custom conditions and sorting</p>
+    </div>
+    <div>
+      <%= link_to_toggle_search_modes %>
+    </div>
+  </div>
 
-<%= search_form_for(
-    @search,
-    url: advanced_search_users_path,
-    html: { method: :post }
-  ) do |f| %>
+  <!-- Advanced search form -->
+  <div class="bg-white shadow rounded-lg">
+    <div class="px-6 py-6">
+      <%= search_form_for(
+          @search,
+          url: advanced_search_users_path,
+          html: { method: :post, class: "space-y-8" }
+        ) do |f| %>
+        
+        <% setup_search_form(f) %>
 
-  <% setup_search_form(f) %>
+        <!-- Sorting section -->
+        <div class="bg-green-50 rounded-lg p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-medium text-gray-900">Sorting Options</h3>
+            <%= button_to_add_fields(f, :sort) %>
+          </div>
+          
+          <div class="space-y-4" id="sort-fields">
+            <%= f.sort_fields do |s| %>
+              <div class="bg-white rounded-md p-4 border border-gray-200">
+                <%= render 'sort_fields', f: s %>
+              </div>
+            <% end %>
+          </div>
+        </div>
 
-  <%= tag.fieldset do %>
-    <%= tag.legend 'Sorting' %>
-    <%= f.sort_fields do |s| %>
-      <%= render 'sort_fields', f: s %>
-    <% end %>
-    <%= button_to_add_fields(f, :sort) %>
-  <% end %>
+        <!-- Condition Groups section -->
+        <div class="bg-purple-50 rounded-lg p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-medium text-gray-900">Search Conditions</h3>
+            <%= button_to_add_fields(f, :grouping) %>
+          </div>
+          
+          <div class="space-y-4" id="grouping-fields">
+            <%= f.grouping_fields do |g| %>
+              <div class="bg-white rounded-md p-4 border border-gray-200">
+                <%= render 'grouping_fields', f: g %>
+              </div>
+            <% end %>
+          </div>
+        </div>
 
-  <%= tag.fieldset do %>
-    <%= tag.legend 'Condition Groups' %>
-    <%= f.grouping_fields do |g| %>
-      <%= render 'grouping_fields', f: g %>
-    <% end %>
-    <%= button_to_add_fields(f, :grouping) %>
-  <% end %>
+        <!-- Options and submit -->
+        <div class="flex items-center justify-between pt-6 border-t border-gray-200">
+          <div class="flex items-center">
+            <%= display_distinct_label_and_check_box %>
+          </div>
+          <div class="flex space-x-3">
+            <button type="reset" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Clear All
+            </button>
+            <%= f.submit "Execute Search", 
+                class: "inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
-  <%= display_distinct_label_and_check_box %>
-  <%= f.submit class: 'btn btn--invert' %>
-<% end %>
-
-<%= render 'results' %>
+  <!-- Results section -->
+  <%= render 'results' %>
+</div>
