@@ -1,11 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
-one:
-  user: 
-  title: MyString
-  body: MyText
+ruby_basics:
+  user: john
+  title: Ruby Basics
+  body: An introduction to Ruby programming language
 
-two:
-  user: 
-  title: MyString
-  body: MyText
+rails_intro:
+  user: jane
+  title: Rails Introduction  
+  body: Getting started with Ruby on Rails framework
+
+advanced_tips:
+  user: john
+  title: Advanced Tips
+  body: Advanced techniques for Ruby and Rails development
+
+design_patterns:
+  user: bob
+  title: Design Patterns
+  body: Common design patterns in Ruby applications

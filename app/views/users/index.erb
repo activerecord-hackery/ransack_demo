@@ -1,39 +1,75 @@
-<%= tag.h1 'Search Users' %>
-<%= tag.header link_to_toggle_search_modes %>
+<div class="space-y-8">
+  <!-- Page header -->
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900">Search Users</h1>
+      <p class="mt-2 text-sm text-gray-700">Find users by name, email, or their posts</p>
+    </div>
+    <div>
+      <%= link_to_toggle_search_modes %>
+    </div>
+  </div>
 
-<%= search_form_for @search do |f| %>
+  <!-- Search form -->
+  <div class="bg-white shadow rounded-lg">
+    <div class="px-6 py-6">
+      <%= search_form_for @search, local: true, class: "space-y-6" do |f| %>
+        
+        <!-- User search section -->
+        <div class="bg-gray-50 rounded-lg p-6">
+          <h3 class="text-lg font-medium text-gray-900 mb-4">User Information</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <%= f.label :first_name_or_last_name_cont, "Name", class: "block text-sm font-medium text-gray-700 mb-1" %>
+              <%= f.text_field :first_name_or_last_name_cont, 
+                  class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm",
+                  placeholder: "Search by first or last name" %>
+            </div>
+            <div>
+              <%= f.label :email_cont, "Email", class: "block text-sm font-medium text-gray-700 mb-1" %>
+              <%= f.text_field :email_cont, 
+                  class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm",
+                  placeholder: "Search by email address" %>
+            </div>
+          </div>
+        </div>
 
-  <%= tag.fieldset do %>
-    <%= tag.legend 'User' %>
-    <%= tag.ul do %>
-      <%= tag.li do %>
-        <%= f.label :first_name_or_last_name_cont %>
-        <%= f.text_field :first_name_or_last_name_cont %>
+        <!-- Posts search section -->
+        <div class="bg-blue-50 rounded-lg p-6">
+          <h3 class="text-lg font-medium text-gray-900 mb-4">User's Posts</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <%= f.label :posts_title_cont, "Post Title", class: "block text-sm font-medium text-gray-700 mb-1" %>
+              <%= f.text_field :posts_title_cont, 
+                  class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm",
+                  placeholder: "Search by post title" %>
+            </div>
+            <div>
+              <%= f.label :other_posts_title_cont, "Other Posts Title", class: "block text-sm font-medium text-gray-700 mb-1" %>
+              <%= f.text_field :other_posts_title_cont, 
+                  class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm",
+                  placeholder: "Search by other post titles" %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Options and submit -->
+        <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+          <div class="flex items-center">
+            <%= display_distinct_label_and_check_box %>
+          </div>
+          <div class="flex space-x-3">
+            <button type="reset" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Clear
+            </button>
+            <%= f.submit "Search Users", 
+                class: "inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+          </div>
+        </div>
       <% end %>
-      <%= tag.li do %>
-        <%= f.label :email_cont %>
-        <%= f.text_field :email_cont %>
-      <% end %>
-    <% end %>
-  <% end %>
+    </div>
+  </div>
 
-  <%= tag.fieldset do %>
-    <%= tag.legend "User's Posts" %>
-    <%= tag.ul do %>
-      <%= tag.li do %>
-        <%= f.label :posts_title_cont %>
-        <%= f.text_field :posts_title_cont %>
-      <% end %>
-
-      <%= tag.li do %>
-        <%= f.label :other_posts_title_cont %>
-        <%= f.text_field :other_posts_title_cont %>
-      <% end %>
-    <% end %>
-  <% end %>
-
-  <%= display_distinct_label_and_check_box %>
-  <%= f.submit class: 'btn btn--invert' %>
-<% end %>
-
-<%= render 'results' %>
+  <!-- Results section -->
+  <%= render 'results' %>
+</div>

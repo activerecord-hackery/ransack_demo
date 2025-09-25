@@ -1,21 +1,48 @@
 <!DOCTYPE html>
-<%= tag.html do %>
-  <%= tag.head do %>
-    <%= tag.title 'RansackDemo' %>
-    <%= stylesheet_link_tag 'application' %>
-    <%= javascript_include_tag 'application' %>
+<html>
+  <head>
+    <title>Ransack Demo</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    
+    <!-- Include Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
     <script type="text/javascript">
-      $(function() {
+      document.addEventListener('DOMContentLoaded', function() {
         <%= yield :document_ready %>
       });
     </script>
-  <% end %>
+  </head>
 
-  <%= tag.body do %>
+  <body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex items-center">
+            <h1 class="text-xl font-semibold text-gray-900">Ransack Demo</h1>
+          </div>
+        </div>
+      </div>
+    </header>
 
-    <%= yield %>
+    <!-- Main content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <%= yield %>
+    </main>
 
-    <%= tag.footer app_info %>
-  <% end %>
-<% end %>
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="text-sm text-gray-500 text-center">
+          <%= app_info %>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

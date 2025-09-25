@@ -1,13 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
-one:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
+john:
+  first_name: John
+  last_name: Doe
+  email: john.doe@example.com
   password_digest: MyString
 
-two:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
+jane:
+  first_name: Jane
+  last_name: Smith
+  email: jane.smith@example.com
+  password_digest: MyString
+
+bob:
+  first_name: Bob
+  last_name: Johnson
+  email: bob.johnson@example.com
   password_digest: MyString
