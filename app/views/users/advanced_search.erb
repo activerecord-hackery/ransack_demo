@@ -59,7 +59,7 @@
             <%= display_distinct_label_and_check_box %>
           </div>
           <div class="flex space-x-3">
-            <button type="reset" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button type="reset" class="<%= tailwind_button_classes(:secondary) %>">
               Clear All
             </button>
             <%= f.submit "Execute Search", 
