@@ -3,8 +3,10 @@
     <%= render "attribute_fields", f: a %>
   <% end %>
 
-  <%# selected: is passed explicitly because ransack 5.0.1 defaults it to nil,
-      which stops Rails re-selecting the submitted predicate on re-render. %>
+  <%# selected: is passed explicitly. ransack 5.0.x sets options[:selected] to nil
+      inside predicate_select, and Rails treats an explicit nil as "select nothing",
+      so the submitted predicate would not be re-selected on re-render. Fixed
+      upstream in activerecord-hackery/ransack#1721; drop this once that ships. %>
   <%= f.predicate_select({selected: f.object.predicate_name}, class: select_classes) %>
 
   <%= f.value_fields do |v| %>

@@ -80,7 +80,7 @@ module ApplicationHelper
   end
 
   def nav_link(label, path)
-    active = current_page?(path)
+    active = current_page?(path) || (path == users_path && current_page?(root_path))
     link_to label, path, class: [
       "rounded-md px-3 py-2 text-sm font-medium",
       active ? "bg-indigo-50 text-indigo-700" : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
