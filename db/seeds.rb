@@ -46,13 +46,13 @@ end
 
 10.times do
   user = FactoryBot.create(:user, roles: [role[:admin]])
-  putc '.'
+  putc "."
   3.times do
     post = FactoryBot.create(:post, user: user)
-    putc '.'
+    putc "."
     3.times { 
       FactoryBot.create(:comment, post: post) 
-      putc '.'
+      putc "."
     }
   end
 end

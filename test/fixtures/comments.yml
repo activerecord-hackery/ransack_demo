@@ -1,11 +1,9 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+bob_on_rails:
+  user: bob
+  post: alice_rails
+  body: Nice framework.
 
-one:
-  user: 
-  post: 
-  body: MyText
-
-two:
-  user: 
-  post: 
-  body: MyText
+carol_on_elixir:
+  user: carol
+  post: bob_elixir
+  body: Love the pipes.

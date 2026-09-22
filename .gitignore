@@ -1,5 +1,20 @@
-.bundle
-db/*.sqlite3
-log/*.log
-tmp/
-.sass-cache/
+# Ignore bundler config.
+/.bundle
+
+# Ignore all environment files.
+/.env*
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+
+# Ignore precompiled assets.
+/public/assets
+
+# Ignore vendored gems.
+/vendor/bundle

@@ -1,11 +1,11 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+rails_ruby:
+  tag: ruby
+  taggable: alice_rails (Post)
 
-one:
-  tag: 
-  taggable_id: 1
-  taggable_type: MyString
+rails_web:
+  tag: web
+  taggable: alice_rails (Post)
 
-two:
-  tag: 
-  taggable_id: 1
-  taggable_type: MyString
+elixir_functional:
+  tag: functional
+  taggable: bob_elixir (Post)

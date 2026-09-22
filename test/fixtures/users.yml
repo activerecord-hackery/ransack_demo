@@ -1,13 +1,17 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+alice:
+  first_name: Alice
+  last_name: Smith
+  email: alice@example.com
+  roles: admin
 
-one:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
-  password_digest: MyString
+bob:
+  first_name: Bob
+  last_name: Jones
+  email: bob@example.com
+  roles: user
 
-two:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
-  password_digest: MyString
+carol:
+  first_name: Carol
+  last_name: White
+  email: carol@example.com
+  roles: user
