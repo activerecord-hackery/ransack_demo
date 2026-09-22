@@ -66,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: https://ransack-demo.herokuapp.com
+      url: https://${{ vars.HEROKU_APP_NAME || 'ransack-demo' }}.herokuapp.com
     concurrency:
       group: heroku-deploy
       cancel-in-progress: false
