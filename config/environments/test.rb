@@ -22,8 +22,6 @@ Rails.application.configure do
   config.consider_all_requests_local = true
   config.cache_store = :null_store
 
-  # Serve precompiled assets in tests (Sprockets).
-  config.assets.debug = false
 
   # Render exception templates for rescuable exceptions and raise for other exceptions.
   config.action_dispatch.show_exceptions = :rescuable

@@ -1,4 +1,7 @@
-<%= tag.span f.text_field(:value),
-  class: value_fields,
-  'data-object-name': f.object_name,
-  escape: false %>
+<span class="inline-flex items-center gap-1" data-fields="value" data-object-name="<%= f.object_name %>">
+  <% if (options = value_options[condition_attribute(f)]) %>
+    <%= f.select :value, options, {include_blank: true}, class: select_classes, data: {attribute: condition_attribute(f)} %>
+  <% else %>
+    <%= f.text_field :value, class: [input_classes, "w-40"], placeholder: "Value" %>
+  <% end %>
+</span>

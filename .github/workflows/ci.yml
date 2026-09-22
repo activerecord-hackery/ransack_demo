@@ -43,4 +43,48 @@ jobs:
         with:
           bundler-cache: true
       - run: bin/rails db:setup
+      - run: bin/rails tailwindcss:build
       - run: bin/rails test
+      - run: bin/rails test:system
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: screenshots
+          path: tmp/screenshots
+          if-no-files-found: ignore
+
+  # Every push to main that passes lint, audit and test is shipped to Heroku.
+  #
+  # Needs one repository secret: HEROKU_API_KEY, a long-lived token from
+  # `heroku authorizations:create --description "GitHub Actions"`.
+  # The Heroku app name defaults to ransack-demo; override it with a
+  # repository variable named HEROKU_APP_NAME.
+  deploy:
+    name: Deploy to Heroku
+    needs: [lint, audit, test]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://${{ vars.HEROKU_APP_NAME || 'ransack-demo' }}.herokuapp.com
+    concurrency:
+      group: heroku-deploy
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Push main to Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP_NAME: ${{ vars.HEROKU_APP_NAME || 'ransack-demo' }}
+        run: |
+          if [ -z "$HEROKU_API_KEY" ]; then
+            echo "::error::HEROKU_API_KEY is not set as a repository secret, so nothing was deployed."
+            exit 1
+          fi
+          # Heroku's git endpoint is a build trigger, not a source of truth, so a
+          # forced update is safe: main is what runs, whatever was pushed by hand before.
+          git push --force \
+            "https://heroku:${HEROKU_API_KEY}@git.heroku.com/${HEROKU_APP_NAME}.git" \
+            "HEAD:refs/heads/main"

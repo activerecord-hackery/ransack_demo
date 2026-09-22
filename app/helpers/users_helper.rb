@@ -1,105 +1,63 @@
-# frozen_string_literal: true
 module UsersHelper
-  def action
-    if action_name == "advanced_search"
-      :post
-    else
-      :get
-    end
-  end
-
-  def link_to_toggle_search_modes
-    if action_name == "advanced_search"
-      link_to("Go to Simple mode", users_path)
-    else
-      link_to("Go to Advanced mode", advanced_search_users_path)
-    end
-  end
-
   def user_column_headers
-    %i(id first_name last_name email created_at updated_at).freeze
+    %i[id first_name last_name email created_at updated_at].freeze
   end
 
-  def user_column_fields
-    %i(id first_name last_name email created updated).freeze
-  end
-
+  # Max number of search results to display.
   def results_limit
-    # max number of search results to display
     10
   end
 
-  def post_title_length
-    # max number of characters in posts titles to display
-    14
+  # Associations offered in the advanced search's attribute select. An entry
+  # such as posts_tags reaches through an association, giving posts_tags_name.
+  def searchable_associations
+    %w[posts posts_tags other_posts other_posts_tags comments roles].freeze
   end
 
-  def post_title_header_labels
-    %w(1 2 3).freeze
-  end
-
-  def user_posts_and_comments
-    %w(posts other_posts comments).freeze
-  end
-
-  def condition_fields
-    %w(fields condition).freeze
-  end
-
-  def value_fields
-    %w(fields value).freeze
-  end
-
-  def display_distinct_label_and_check_box
-    tag.section do
-      check_box_tag(:distinct, "1", user_wants_distinct_results?, class: :cbx) +
-      label_tag(:distinct, "Return distinct records")
+  # Attributes whose values come from a short, known list. The advanced search
+  # offers these as a select instead of a free-text field.
+  def value_options
+    @value_options ||= begin
+      tag_names = Tag.order(:name).pluck(:name)
+      {
+        "roles_name" => Role.order(:name).pluck(:name),
+        "posts_tags_name" => tag_names,
+        "other_posts_tags_name" => tag_names
+      }
     end
+  end
+
+  # The attribute of the condition a value field belongs to.
+  def condition_attribute(value_builder)
+    value_builder.options[:parent_builder].object.attributes.first&.name
+  end
+
+  # Templates the search controller clones when the attribute of a condition
+  # changes: a plain text input, and one select per attribute in value_options.
+  def value_field_templates
+    input = tag.template text_field_tag("value", nil, class: [input_classes, "w-40"], placeholder: "Value"),
+      data: {search_target: "valueInput"}
+    selects = value_options.map do |attribute, options|
+      tag.template select_tag("value", options_for_select(options), include_blank: true, class: select_classes),
+        data: {search_target: "valueOptions", attribute: attribute}
+    end
+    safe_join([input, *selects])
   end
 
   def user_wants_distinct_results?
     params[:distinct].to_i == 1
   end
 
-  def display_query_sql(users)
-    tag.p("SQL:") + tag.code(users.to_sql)
-  end
-
-  def display_results_header(count)
+  def results_header(count)
     if count > results_limit
       "Your first #{results_limit} results out of #{count} total"
     else
-      "Your #{pluralize(count, 'result')}"
+      "Your #{pluralize(count, "result")}"
     end
   end
 
-  def display_sort_column_headers(search)
-    user_column_headers.reduce(String.new) do |string, field|
-      string << (tag.th sort_link(search, field, method: action))
-    end +
-    post_title_header_labels.reduce(String.new) do |str, i|
-      str << (tag.th "Post #{i} title")
-    end
-  end
-
-  def display_search_results(objects)
-    objects.limit(results_limit).reduce(String.new) do |string, object|
-      string << (tag.tr display_search_results_row(object))
-    end
-  end
-
-  def display_search_results_row(object)
-    user_column_fields.reduce(String.new) do |string, field|
-      string << (tag.td object.send(field))
-    end
-    .html_safe +
-    display_user_posts(object.posts)
-  end
-
-  def display_user_posts(posts)
-    posts.reduce(String.new) do |string, post|
-      string << (tag.td truncate(post.title, length: post_title_length))
-    end
-    .html_safe
+  def sort_header(search, field, label = nil)
+    sort_link search, field, *[label].compact,
+      class: "group inline-flex items-center gap-1 text-gray-900 hover:text-indigo-600"
   end
 end

@@ -22,9 +22,11 @@ class Post < ApplicationRecord
     tags.join(", ")
   end
 
-  private
-
-  def self.ransackable_attributes(_auth_object)
+  def self.ransackable_attributes(_auth_object = nil)
     ["title"]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    ["tags"]
   end
 end

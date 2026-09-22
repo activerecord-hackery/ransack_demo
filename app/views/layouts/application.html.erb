@@ -1,21 +1,38 @@
 <!DOCTYPE html>
-<%= tag.html do %>
-  <%= tag.head do %>
-    <%= tag.title 'RansackDemo' %>
-    <%= stylesheet_link_tag 'application' %>
-    <%= javascript_include_tag 'application' %>
+<html class="h-full bg-gray-50">
+  <head>
+    <title><%= content_for(:title) || "Ransack demo" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
-    <script type="text/javascript">
-      $(function() {
-        <%= yield :document_ready %>
-      });
-    </script>
-  <% end %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
 
-  <%= tag.body do %>
+  <body class="h-full text-gray-900">
+    <div class="min-h-full">
+      <header class="bg-white shadow-xs">
+        <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8" aria-label="Main">
+          <%= link_to root_path, class: "flex items-center gap-2 text-lg font-semibold tracking-tight" do %>
+            <span class="inline-flex size-8 items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white">R</span>
+            Ransack demo
+          <% end %>
+          <div class="flex gap-2">
+            <%= nav_link "Simple search", users_path %>
+            <%= nav_link "Advanced search", advanced_search_users_path %>
+            <%= link_to "Ransack docs", "https://activerecord-hackery.github.io/ransack/",
+              class: "rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900" %>
+          </div>
+        </nav>
+      </header>
 
-    <%= yield %>
+      <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <%= yield %>
+      </main>
 
-    <%= tag.footer app_info %>
-  <% end %>
-<% end %>
+      <footer class="mx-auto max-w-7xl px-4 py-8 text-sm text-gray-500 sm:px-6 lg:px-8">
+        <%= app_info %>
+      </footer>
+    </div>
+  </body>
+</html>
