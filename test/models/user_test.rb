@@ -10,7 +10,12 @@ class UserTest < ActiveSupport::TestCase
     assert_not_includes User.ransortable_attributes, "password_digest"
   end
 
-  test "only posts associations are searchable" do
-    assert_equal %w[posts other_posts], User.ransackable_associations
+  test "searchable associations are allowlisted" do
+    assert_equal %w[posts other_posts comments roles], User.ransackable_associations
+  end
+
+  test "searches through roles and through posts to tags" do
+    assert_equal [users(:alice)], User.ransack(roles_name_in: ["admin"]).result.to_a
+    assert_equal [users(:bob)], User.ransack(posts_tags_name_in: ["functional"]).result.to_a
   end
 end

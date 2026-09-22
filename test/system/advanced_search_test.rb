@@ -100,6 +100,30 @@ class AdvancedSearchTest < ApplicationSystemTestCase
     assert_result_emails %w[alice@example.com carol@example.com]
   end
 
+  test "an attribute with known values gets a select" do
+    visit advanced_search_users_url
+
+    click_on "Add Condition"
+    within_last :condition do
+      choose_attribute "roles_name"
+      select "admin", from: find("select[name$='[value]']")[:name]
+
+      choose_attribute "first_name"
+      assert_selector "input[placeholder=Value]"
+      assert_no_selector "select[name$='[value]']"
+
+      choose_attribute "posts_tags_name"
+      assert_selector "select[name$='[value]'] option[value=ruby]"
+
+      choose_attribute "roles_name"
+      select "admin", from: find("select[name$='[value]']")[:name]
+    end
+    click_on "Search"
+
+    assert_text "Your 1 result"
+    assert_result_emails %w[alice@example.com]
+  end
+
   private
 
   def within_last(type, &block)
@@ -108,6 +132,10 @@ class AdvancedSearchTest < ApplicationSystemTestCase
 
   def attribute_select
     find("select[name$='[a][0][name]']")[:name]
+  end
+
+  def choose_attribute(value)
+    find("select[name$='[a][0][name]'] option[value=#{value}]").select_option
   end
 
   def predicate_select

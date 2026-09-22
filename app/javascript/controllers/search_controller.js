@@ -11,12 +11,33 @@ import { Controller } from "@hotwired/stimulus"
 // without an infinite loop, so a single grouping template is rendered once
 // under the object name "new_object_name" and re-parented here on each nest.
 export default class extends Controller {
-  static targets = ["groupingTemplate"]
+  static targets = ["groupingTemplate", "valueInput", "valueOptions"]
 
   add(event) {
     const button = event.currentTarget
     const template = button.previousElementSibling
     button.insertAdjacentHTML("beforebegin", this.stamp(template.innerHTML, event.params.type))
+    if (event.params.type === "value") this.syncValueFields(button.closest("[data-fields=condition]"))
+  }
+
+  // Attributes with a known set of values (see UsersHelper#value_options) get
+  // a select instead of a text field, swapped in whenever the attribute changes.
+  attributeChanged(event) {
+    this.syncValueFields(event.currentTarget.closest("[data-fields=condition]"))
+  }
+
+  syncValueFields(condition) {
+    const attribute = condition.querySelector("select[name$='[name]']").value
+    const options = this.valueOptionsTargets.find((template) => template.dataset.attribute === attribute)
+    const template = options || this.valueInputTarget
+    condition.querySelectorAll("[data-fields=value]").forEach((container) => {
+      const current = container.querySelector("input, select")
+      const replacement = template.content.firstElementChild.cloneNode(true)
+      if (current.tagName === "INPUT" && replacement.tagName === "INPUT") return
+      replacement.name = current.name
+      replacement.id = current.id
+      current.replaceWith(replacement)
+    })
   }
 
   remove(event) {

@@ -113,6 +113,26 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select "[data-fields=condition] input[name$='[value]'][value=Carol]"
   end
 
+  test "index filters by role and by tag through selects" do
+    get users_url, params: {q: {roles_name_in: ["", "user"]}}
+    assert_result_emails %w[bob@example.com carol@example.com]
+    assert_select "select[name='q[roles_name_in][]'] option[selected][value=user]"
+
+    get users_url, params: {q: {posts_tags_name_in: ["", "ruby", "web"]}, distinct: 1}
+    assert_result_emails %w[alice@example.com]
+  end
+
+  test "advanced search renders a select for attributes with known values" do
+    get advanced_search_users_url, params: {
+      q: {g: {"0" => {c: {"0" => {a: {"0" => {name: "roles_name"}}, p: "eq", v: {"0" => {value: "admin"}}}}}}}
+    }
+    assert_response :success
+    assert_result_emails %w[alice@example.com]
+    assert_select "[data-fields=value] select[name='q[g][0][c][0][v][0][value]'] option[selected][value=admin]"
+    assert_select "template[data-search-target=valueOptions][data-attribute=roles_name] option[value=admin]"
+    assert_select "template[data-search-target=valueOptions][data-attribute=posts_tags_name] option[value=ruby]"
+  end
+
   test "advanced search ignores attributes that are not allowlisted" do
     post advanced_search_users_url, params: {
       q: {g: {"0" => {c: {"0" => {a: {"0" => {name: "password_digest"}}, p: "cont", v: {"0" => {value: "x"}}}}}}}

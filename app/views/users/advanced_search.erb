@@ -6,6 +6,7 @@
     Conditions are built from the form builder's <code class="rounded bg-gray-100 px-1 py-0.5 text-xs">attribute_select</code>,
     <code class="rounded bg-gray-100 px-1 py-0.5 text-xs">predicate_select</code> and
     <code class="rounded bg-gray-100 px-1 py-0.5 text-xs">combinator_select</code>, and groups can be nested.
+    Attributes with a known set of values, such as a role or tag name, get a select instead of a text field.
   </p>
 </div>
 
@@ -13,6 +14,7 @@
   html: {class: "rounded-lg bg-white p-6 shadow-xs ring-1 ring-gray-200", data: {controller: "search"}} do |f| %>
 
   <%= grouping_template(f) %>
+  <%= value_field_templates %>
 
   <fieldset class="rounded-md border border-gray-200 p-4">
     <legend class="px-1 text-sm font-semibold text-gray-900">Sorting</legend>

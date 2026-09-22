@@ -39,10 +39,10 @@ class User < ApplicationRecord
     ransortable_attributes + _ransackers.keys
   end
 
-  # Allowlist the User model associations for sorting, only posts.
+  # Allowlist the User model associations for search.
   #
   def self.ransackable_associations(auth_object = nil)
-    ["posts", "other_posts"]
+    ["posts", "other_posts", "comments", "roles"]
   end
 
   # Demonstration of using a "ransacker" (a virtual, searchable "column") to

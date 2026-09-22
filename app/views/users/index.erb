@@ -21,6 +21,12 @@
           <%= f.label :email_cont, class: "block text-sm/6 font-medium text-gray-900" %>
           <%= f.search_field :email_cont, class: input_classes %>
         </div>
+        <div>
+          <%= f.label :roles_name_in, "Roles", class: "block text-sm/6 font-medium text-gray-900" %>
+          <%= f.collection_select :roles_name_in, Role.order(:name), :name, :name, {},
+            multiple: true, size: 3, class: [select_classes, "w-full"] %>
+          <p class="mt-1 text-xs text-gray-500">Searches through the <code>roles</code> association with <code>roles_name_in</code>.</p>
+        </div>
       </div>
     </fieldset>
 
@@ -34,6 +40,12 @@
         <div>
           <%= f.label :other_posts_title_cont, class: "block text-sm/6 font-medium text-gray-900" %>
           <%= f.search_field :other_posts_title_cont, class: input_classes %>
+        </div>
+        <div>
+          <%= f.label :posts_tags_name_in, "Tags", class: "block text-sm/6 font-medium text-gray-900" %>
+          <%= f.collection_select :posts_tags_name_in, Tag.order(:name), :name, :name, {},
+            multiple: true, size: 3, class: [select_classes, "w-full"] %>
+          <p class="mt-1 text-xs text-gray-500">Reaches two associations deep with <code>posts_tags_name_in</code>.</p>
         </div>
       </div>
     </fieldset>
