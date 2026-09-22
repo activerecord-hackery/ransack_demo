@@ -23,3 +23,12 @@ The main things you'll want to note are:
   grouping template)
 
 Let us know if you have any questions, and happy ransacking!
+
+## Deploying
+
+The demo runs at https://ransack-demo.herokuapp.com. Every push to `main` that
+passes CI is shipped there automatically by the `deploy` job in
+`.github/workflows/ci.yml`. The job needs a repository secret named
+`HEROKU_API_KEY` (a token from `heroku authorizations:create`), and reads the
+app name from an optional `HEROKU_APP_NAME` repository variable, defaulting to
+`ransack-demo`. A hand-run deploy is just `git push heroku main`.
