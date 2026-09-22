@@ -33,6 +33,22 @@ export default class extends Controller {
     button.insertAdjacentHTML("beforebegin", this.stamp(html, "grouping"))
   }
 
+  // Only some predicates (in, not_in, *_any, *_all) accept several values. A
+  // condition that pairs a single-value predicate with several values is
+  // invalid and ransack drops it, so the form would appear to reset. Keep the
+  // "Add Value" button in step with the predicate and trim surplus values.
+  predicateChanged(event) {
+    const select = event.currentTarget
+    const multi = select.dataset.multiValuePredicates.split(" ").includes(select.value)
+    const condition = select.closest("[data-fields=condition]")
+    const button = condition.querySelector("button[data-search-type-param=value]")
+    button.disabled = !multi
+    if (multi) return
+    condition.querySelectorAll("[data-fields=value]").forEach((value, index) => {
+      if (index > 0) value.remove()
+    })
+  }
+
   stamp(html, type) {
     return html.replace(new RegExp(`new_${type}`, "g"), Date.now())
   }

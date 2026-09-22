@@ -90,6 +90,29 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select "input[name='q[g][0][c][0][v][0][value]'][value=bob]"
   end
 
+  test "advanced search only offers extra values for multi-value predicates" do
+    get advanced_search_users_url, params: {
+      q: {g: {"0" => {c: {"0" => {a: {"0" => {name: "first_name"}}, p: "eq", v: {"0" => {value: "Alice"}}}}}}}
+    }
+    assert_select "[data-fields=condition] button[data-search-type-param=value][disabled]"
+
+    get advanced_search_users_url, params: {
+      q: {g: {"0" => {c: {"0" => {a: {"0" => {name: "first_name"}}, p: "in", v: {"0" => {value: "Alice"}}}}}}}
+    }
+    assert_select "[data-fields=condition] button[data-search-type-param=value]:not([disabled])"
+  end
+
+  test "advanced search with several values on a multi-value predicate" do
+    get advanced_search_users_url, params: {
+      q: {g: {"0" => {c: {"0" => {a: {"0" => {name: "first_name"}}, p: "in",
+        v: {"0" => {value: "Alice"}, "1" => {value: "Carol"}}}}}}}
+    }
+    assert_response :success
+    assert_result_emails %w[alice@example.com carol@example.com]
+    assert_select "[data-fields=condition] input[name$='[value]'][value=Alice]"
+    assert_select "[data-fields=condition] input[name$='[value]'][value=Carol]"
+  end
+
   test "advanced search ignores attributes that are not allowlisted" do
     post advanced_search_users_url, params: {
       q: {g: {"0" => {c: {"0" => {a: {"0" => {name: "password_digest"}}, p: "cont", v: {"0" => {value: "x"}}}}}}}

@@ -72,6 +72,34 @@ class AdvancedSearchTest < ApplicationSystemTestCase
     assert_result_emails %w[carol@example.com bob@example.com alice@example.com]
   end
 
+  test "several values need a multi-value predicate" do
+    visit advanced_search_users_url
+
+    click_on "Add Condition"
+    within_last :condition do
+      select "First name", from: attribute_select
+      select "equals", from: predicate_select
+      assert_button "Add Value", disabled: true
+
+      select "in", from: predicate_select
+      click_on "Add Value"
+      all("input[placeholder=Value]")[0].fill_in with: "Alice"
+      all("input[placeholder=Value]")[1].fill_in with: "Carol"
+
+      select "equals", from: predicate_select
+      assert_selector "input[placeholder=Value]", count: 1
+      assert_field "Value", with: "Alice"
+
+      select "in", from: predicate_select
+      click_on "Add Value"
+      all("input[placeholder=Value]")[1].fill_in with: "Carol"
+    end
+    click_on "Search"
+
+    assert_text "Your 2 results"
+    assert_result_emails %w[alice@example.com carol@example.com]
+  end
+
   private
 
   def within_last(type, &block)

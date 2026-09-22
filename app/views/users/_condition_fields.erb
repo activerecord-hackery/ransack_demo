@@ -5,12 +5,14 @@
 
   <%# selected: is passed explicitly because ransack 5.0.1 defaults it to nil,
       which stops Rails re-selecting the submitted predicate on re-render. %>
-  <%= f.predicate_select({selected: f.object.predicate_name}, class: select_classes) %>
+  <%= f.predicate_select({selected: f.object.predicate_name}, class: select_classes,
+    data: {action: "change->search#predicateChanged", multi_value_predicates: multi_value_predicates.join(" ")}) %>
 
   <%= f.value_fields do |v| %>
     <%= render "value_fields", f: v %>
   <% end %>
 
-  <%= button_to_add_fields(f, :value) %>
+  <% multi = f.object.predicate&.wants_array %>
+  <%= button_to_add_fields(f, :value, disabled: !multi, title: (multi_value_hint unless multi)) %>
   <span class="ml-auto"><%= button_to_remove_fields %></span>
 </div>

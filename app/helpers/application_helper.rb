@@ -46,7 +46,7 @@ module ApplicationHelper
 
   # A <template> holding a fresh set of fields for +type+, followed by the
   # button that inserts a stamped copy of it.
-  def button_to_add_fields(f, type)
+  def button_to_add_fields(f, type, disabled: false, title: nil)
     new_object = f.object.send("build_#{type}")
     name = "#{type}_fields"
     fields = f.send(name, new_object, child_index: "new_#{type}") do |builder|
@@ -54,8 +54,19 @@ module ApplicationHelper
     end
 
     tag.template(fields) +
-      tag.button(button_label[type], type: "button", class: button_classes(:secondary),
+      tag.button(button_label[type], type: "button", disabled: disabled, title: title,
+        class: [button_classes(:secondary), "disabled:cursor-not-allowed disabled:opacity-50"],
         data: {action: "search#add", search_type_param: type})
+  end
+
+  # Only these predicates accept several values; a condition that pairs a
+  # single-value predicate with several values is invalid and ransack drops it.
+  def multi_value_predicates
+    Ransack::Predicate.names.select { |name| Ransack::Predicate.named(name).wants_array }
+  end
+
+  def multi_value_hint
+    "Only the in, not in, any and all predicates accept several values"
   end
 
   def button_to_nest_fields
