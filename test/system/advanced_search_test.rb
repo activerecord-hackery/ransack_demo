@@ -124,6 +124,24 @@ class AdvancedSearchTest < ApplicationSystemTestCase
     assert_result_emails %w[alice@example.com]
   end
 
+  test "adding a value to a select-backed attribute keeps the chosen values" do
+    visit advanced_search_users_url
+
+    click_on "Add Condition"
+    within_last :condition do
+      choose_attribute "roles_name"
+      select "in", from: predicate_select
+      select "admin", from: all("select[name$='[value]']")[0][:name]
+      click_on "Add Value"
+      assert_selector "select[name$='[value]']", count: 2
+      assert_equal "admin", all("select[name$='[value]']")[0].value
+      select "user", from: all("select[name$='[value]']")[1][:name]
+    end
+    click_on "Search"
+
+    assert_text "Your 3 results"
+  end
+
   private
 
   def within_last(type, &block)
