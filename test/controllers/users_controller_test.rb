@@ -50,6 +50,36 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_result_emails %w[alice@example.com bob@example.com]
   end
 
+  test "advanced search accepts a combinator in any case" do
+    post advanced_search_users_url, params: {
+      q: {
+        g: {
+          "0" => {
+            m: "OR",
+            c: {
+              "0" => {a: {"0" => {name: "first_name"}}, p: "eq", v: {"0" => {value: "Alice"}}},
+              "1" => {a: {"0" => {name: "first_name"}}, p: "eq", v: {"0" => {value: "Carol"}}}
+            }
+          }
+        }
+      }
+    }
+    assert_response :success
+    assert_result_emails %w[alice@example.com carol@example.com]
+  end
+
+  test "LIKE wildcards typed by the user are matched literally" do
+    get users_url, params: {q: {first_name_cont: "%"}}
+    assert_response :success
+    assert_result_emails []
+    assert_select "h2", "Your 0 results"
+  end
+
+  test "footer reports the ransack version" do
+    get users_url
+    assert_select "footer", /Ransack #{Regexp.escape(Ransack::VERSION)}/
+  end
+
   test "advanced search ignores attributes that are not allowlisted" do
     post advanced_search_users_url, params: {
       q: {g: {"0" => {c: {"0" => {a: {"0" => {name: "password_digest"}}, p: "cont", v: {"0" => {value: "x"}}}}}}}

@@ -13,7 +13,7 @@ gem "sprockets-rails"
 gem "jquery-rails"
 
 # The star of the show
-gem "ransack", "~> 4.4"
+gem "ransack", "~> 5.0"
 
 # Seed data
 gem "factory_bot"

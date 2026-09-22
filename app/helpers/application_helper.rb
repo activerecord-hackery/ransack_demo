@@ -50,8 +50,8 @@ module ApplicationHelper
   def app_info
     @@app_info ||= "#{
       tag.strong 'Ransack demo app'
-      } running on Ruby #{RUBY_VERSION}, Rails #{Rails::VERSION::STRING
-      } and #{User.postgres_version} - #{source_code_link}".html_safe
+      } running Ransack #{Ransack::VERSION} on Ruby #{RUBY_VERSION}, Rails #{
+      Rails::VERSION::STRING} and #{User.postgres_version} - #{source_code_link}".html_safe
   end
 
   def source_code_link
