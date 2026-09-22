@@ -9,6 +9,8 @@
   </p>
 </div>
 
+<%# Submits with GET on purpose: results are bookmarkable, and Turbo Drive will
+    not render a 200 HTML response to a POST form. The route accepts both. %>
 <%= search_form_for @search, url: advanced_search_users_path,
   html: {class: "rounded-lg bg-white p-6 shadow-xs ring-1 ring-gray-200", data: {controller: "search"}} do |f| %>
 
