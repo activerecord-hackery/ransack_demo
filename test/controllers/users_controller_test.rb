@@ -164,8 +164,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       q: {g: {"0" => {c: {"0" => {a: {"0" => {name: "name"}}, p: "cont", v: {"0" => {value: "a"}}}}}}}
     }
     assert_response :success
-    assert_select "select[name='q[g][0][c][0][a][0][name]'] option[value=name]", 0
-    assert_select "select[name='q[g][0][c][0][a][0][name]'] option[value=posts_count]", 1
+    assert_select "select[name='q[g][0][c][new_condition][a][0][name]'] option[value=name]", 0
+    assert_select "select[name='q[g][0][c][new_condition][a][0][name]'] option[value=posts_count]", 1
     assert_result_emails %w[alice@example.com bob@example.com carol@example.com]
   end
 
