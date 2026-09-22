@@ -1,0 +1,11 @@
+<div class="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-gray-200 pt-6">
+  <label class="flex items-center gap-2 text-sm text-gray-700">
+    <%= check_box_tag :distinct, "1", user_wants_distinct_results?,
+      class: "size-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+    Return distinct records
+  </label>
+  <div class="flex items-center gap-3">
+    <%= link_to "Reset", url_for(action: action_name), class: "text-sm font-semibold text-gray-700 hover:text-gray-900" %>
+    <%= f.submit "Search", class: button_classes(:primary) %>
+  </div>
+</div>

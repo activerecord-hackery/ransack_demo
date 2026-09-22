@@ -1,32 +1,40 @@
-<%= tag.h1 'Advanced User Search' %>
-<%= tag.header link_to_toggle_search_modes %>
+<% content_for :title, "Advanced search - Ransack demo" %>
 
-<%= search_form_for(
-    @search,
-    url: advanced_search_users_path,
-    html: { method: :post }
-  ) do |f| %>
+<div class="mb-6">
+  <h1 class="text-2xl font-semibold tracking-tight">Advanced search</h1>
+  <p class="mt-1 text-sm text-gray-600">
+    Conditions are built from the form builder's <code class="rounded bg-gray-100 px-1 py-0.5 text-xs">attribute_select</code>,
+    <code class="rounded bg-gray-100 px-1 py-0.5 text-xs">predicate_select</code> and
+    <code class="rounded bg-gray-100 px-1 py-0.5 text-xs">combinator_select</code>, and groups can be nested.
+  </p>
+</div>
 
-  <% setup_search_form(f) %>
+<%= search_form_for @search, url: advanced_search_users_path,
+  html: {class: "rounded-lg bg-white p-6 shadow-xs ring-1 ring-gray-200", data: {controller: "search"}} do |f| %>
 
-  <%= tag.fieldset do %>
-    <%= tag.legend 'Sorting' %>
-    <%= f.sort_fields do |s| %>
-      <%= render 'sort_fields', f: s %>
-    <% end %>
-    <%= button_to_add_fields(f, :sort) %>
-  <% end %>
+  <%= grouping_template(f) %>
 
-  <%= tag.fieldset do %>
-    <%= tag.legend 'Condition Groups' %>
-    <%= f.grouping_fields do |g| %>
-      <%= render 'grouping_fields', f: g %>
-    <% end %>
-    <%= button_to_add_fields(f, :grouping) %>
-  <% end %>
+  <fieldset class="rounded-md border border-gray-200 p-4">
+    <legend class="px-1 text-sm font-semibold text-gray-900">Sorting</legend>
+    <div class="space-y-3">
+      <%= f.sort_fields do |s| %>
+        <%= render "sort_fields", f: s %>
+      <% end %>
+      <%= button_to_add_fields(f, :sort) %>
+    </div>
+  </fieldset>
 
-  <%= display_distinct_label_and_check_box %>
-  <%= f.submit class: 'btn btn--invert' %>
+  <fieldset class="mt-6 rounded-md border border-gray-200 p-4">
+    <legend class="px-1 text-sm font-semibold text-gray-900">Conditions</legend>
+    <div class="space-y-3">
+      <%= f.grouping_fields do |g| %>
+        <%= render "grouping_fields", f: g %>
+      <% end %>
+      <%= button_to_add_fields(f, :grouping) %>
+    </div>
+  </fieldset>
+
+  <%= render "search_actions", f: f %>
 <% end %>
 
-<%= render 'results' %>
+<%= render "results" %>

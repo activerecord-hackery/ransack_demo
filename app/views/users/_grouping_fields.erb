@@ -1,18 +1,20 @@
-<%= tag.fieldset class: :fields, 'data-object-name': f.object_name do %>
+<fieldset class="rounded-md border-l-4 border-indigo-200 bg-gray-50 p-4" data-fields="grouping" data-object-name="<%= f.object_name %>">
+  <div class="flex flex-wrap items-center gap-3">
+    <span class="text-sm font-medium text-gray-900">Match</span>
+    <%= f.combinator_select({}, class: select_classes) %>
+    <span class="text-sm font-medium text-gray-900">of the following</span>
+    <span class="ml-auto"><%= button_to_remove_fields %></span>
+  </div>
 
-  <%= tag.legend "Match #{f.combinator_select} conditions #{
-    button_to_remove_fields}", escape: false %>
+  <div class="mt-3 space-y-3">
+    <%= f.condition_fields do |c| %>
+      <%= render "condition_fields", f: c %>
+    <% end %>
+    <%= button_to_add_fields(f, :condition) %>
 
-  <%= f.condition_fields do |c| %>
-    <%= render 'condition_fields', f: c %>
-  <% end %>
-
-  <%= button_to_add_fields(f, :condition) %>
-
-  <%= f.grouping_fields do |g| %>
-    <%= render 'grouping_fields', f: g %>
-  <% end %>
-
-  <%= button_to_nest_fields(:grouping) %>
-
-<% end %>
+    <%= f.grouping_fields do |g| %>
+      <%= render "grouping_fields", f: g %>
+    <% end %>
+    <%= button_to_nest_fields %>
+  </div>
+</fieldset>

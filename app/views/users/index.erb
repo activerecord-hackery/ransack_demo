@@ -1,39 +1,45 @@
-<%= tag.h1 'Search Users' %>
-<%= tag.header link_to_toggle_search_modes %>
+<% content_for :title, "Simple search - Ransack demo" %>
 
-<%= search_form_for @search do |f| %>
+<div class="mb-6">
+  <h1 class="text-2xl font-semibold tracking-tight">Simple search</h1>
+  <p class="mt-1 text-sm text-gray-600">
+    A plain <code class="rounded bg-gray-100 px-1 py-0.5 text-xs">search_form_for</code> with
+    predicate-suffixed field names, such as <code class="rounded bg-gray-100 px-1 py-0.5 text-xs">first_name_or_last_name_cont</code>.
+  </p>
+</div>
 
-  <%= tag.fieldset do %>
-    <%= tag.legend 'User' %>
-    <%= tag.ul do %>
-      <%= tag.li do %>
-        <%= f.label :first_name_or_last_name_cont %>
-        <%= f.text_field :first_name_or_last_name_cont %>
-      <% end %>
-      <%= tag.li do %>
-        <%= f.label :email_cont %>
-        <%= f.text_field :email_cont %>
-      <% end %>
-    <% end %>
-  <% end %>
+<%= search_form_for @search, html: {class: "rounded-lg bg-white p-6 shadow-xs ring-1 ring-gray-200"} do |f| %>
+  <div class="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
+    <fieldset>
+      <legend class="text-sm font-semibold text-gray-900">User</legend>
+      <div class="mt-3 space-y-4">
+        <div>
+          <%= f.label :first_name_or_last_name_cont, class: "block text-sm/6 font-medium text-gray-900" %>
+          <%= f.search_field :first_name_or_last_name_cont, class: input_classes %>
+        </div>
+        <div>
+          <%= f.label :email_cont, class: "block text-sm/6 font-medium text-gray-900" %>
+          <%= f.search_field :email_cont, class: input_classes %>
+        </div>
+      </div>
+    </fieldset>
 
-  <%= tag.fieldset do %>
-    <%= tag.legend "User's Posts" %>
-    <%= tag.ul do %>
-      <%= tag.li do %>
-        <%= f.label :posts_title_cont %>
-        <%= f.text_field :posts_title_cont %>
-      <% end %>
+    <fieldset>
+      <legend class="text-sm font-semibold text-gray-900">User's posts</legend>
+      <div class="mt-3 space-y-4">
+        <div>
+          <%= f.label :posts_title_cont, class: "block text-sm/6 font-medium text-gray-900" %>
+          <%= f.search_field :posts_title_cont, class: input_classes %>
+        </div>
+        <div>
+          <%= f.label :other_posts_title_cont, class: "block text-sm/6 font-medium text-gray-900" %>
+          <%= f.search_field :other_posts_title_cont, class: input_classes %>
+        </div>
+      </div>
+    </fieldset>
+  </div>
 
-      <%= tag.li do %>
-        <%= f.label :other_posts_title_cont %>
-        <%= f.text_field :other_posts_title_cont %>
-      <% end %>
-    <% end %>
-  <% end %>
-
-  <%= display_distinct_label_and_check_box %>
-  <%= f.submit class: 'btn btn--invert' %>
+  <%= render "search_actions", f: f %>
 <% end %>
 
-<%= render 'results' %>
+<%= render "results" %>

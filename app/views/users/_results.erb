@@ -1,6 +1,39 @@
-<%= display_query_sql(@users) %>
-<%= tag.h2 display_results_header(@users.size) %>
-<%= tag.table do %>
-  <%= tag.thead display_sort_column_headers(@search), escape: false %>
-  <%= tag.tbody display_search_results(@users), escape: false %>
-<% end %>
+<section class="mt-8">
+  <h2 class="text-base font-semibold text-gray-900">SQL</h2>
+  <pre class="mt-2 overflow-x-auto rounded-md bg-gray-900 p-4 text-xs/5 text-gray-100"><code><%= @users.to_sql %></code></pre>
+</section>
+
+<section class="mt-8">
+  <h2 class="text-base font-semibold text-gray-900"><%= results_header(@users.size) %></h2>
+  <div class="mt-3 overflow-x-auto rounded-lg bg-white shadow-xs ring-1 ring-gray-200">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <% user_column_headers.each do |field| %>
+            <th scope="col" class="px-3 py-3 text-left text-sm font-semibold whitespace-nowrap"><%= sort_header(@search, field) %></th>
+          <% end %>
+          <th scope="col" class="px-3 py-3 text-left text-sm font-semibold">Posts</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        <% @users.limit(results_limit).each do |user| %>
+          <tr class="hover:bg-gray-50">
+            <td class="px-3 py-2 text-sm whitespace-nowrap text-gray-500"><%= user.id %></td>
+            <td class="px-3 py-2 text-sm whitespace-nowrap font-medium"><%= user.first_name %></td>
+            <td class="px-3 py-2 text-sm whitespace-nowrap font-medium"><%= user.last_name %></td>
+            <td class="px-3 py-2 text-sm whitespace-nowrap text-gray-500"><%= user.email %></td>
+            <td class="px-3 py-2 text-sm whitespace-nowrap text-gray-500"><%= user.created %></td>
+            <td class="px-3 py-2 text-sm whitespace-nowrap text-gray-500"><%= user.updated %></td>
+            <td class="px-3 py-2 text-sm text-gray-500">
+              <div class="flex flex-wrap gap-1">
+                <% user.posts.each do |post| %>
+                  <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700 ring-1 ring-indigo-600/10 ring-inset"><%= truncate(post.title, length: 24) %></span>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

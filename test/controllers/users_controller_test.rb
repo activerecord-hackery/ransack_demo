@@ -29,7 +29,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "advanced search renders an empty grouping" do
     get advanced_search_users_url
     assert_response :success
-    assert_select "fieldset.fields select[name='q[g][0][m]']"
+    assert_select "fieldset[data-fields] select[name='q[g][0][m]']"
   end
 
   test "advanced search filters with nested conditions" do
@@ -78,6 +78,16 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "footer reports the ransack version" do
     get users_url
     assert_select "footer", /Ransack #{Regexp.escape(Ransack::VERSION)}/
+  end
+
+  test "advanced search re-selects the submitted attribute and predicate" do
+    get advanced_search_users_url, params: {
+      q: {g: {"0" => {c: {"0" => {a: {"0" => {name: "email"}}, p: "cont", v: {"0" => {value: "bob"}}}}}}}
+    }
+    assert_response :success
+    assert_select "select[name='q[g][0][c][0][a][0][name]'] option[selected][value=email]"
+    assert_select "select[name='q[g][0][c][0][p]'] option[selected][value=cont]"
+    assert_select "input[name='q[g][0][c][0][v][0][value]'][value=bob]"
   end
 
   test "advanced search ignores attributes that are not allowlisted" do
