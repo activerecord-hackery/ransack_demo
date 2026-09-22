@@ -1,6 +1,6 @@
 <section class="mt-8">
   <h2 class="text-base font-semibold text-gray-900">SQL</h2>
-  <pre class="mt-2 overflow-x-auto rounded-md bg-gray-900 p-4 text-xs/5 text-gray-100"><code><%= @users.to_sql %></code></pre>
+  <pre class="mt-2 rounded-md bg-gray-900 p-4 text-xs/5 whitespace-pre-wrap break-all text-gray-100"><code><%= @users.to_sql %></code></pre>
 </section>
 
 <section class="mt-8">
@@ -13,7 +13,7 @@
             <th scope="col" class="px-3 py-3 text-left text-sm font-semibold whitespace-nowrap"><%= sort_header(@search, field) %></th>
           <% end %>
           <th scope="col" class="px-3 py-3 text-left text-sm font-semibold">Roles</th>
-          <th scope="col" class="px-3 py-3 text-left text-sm font-semibold">Posts</th>
+          <th scope="col" class="px-3 py-3 text-left text-sm font-semibold whitespace-nowrap"><%= sort_header(@search, :posts_count, "Posts") %></th>
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-100">
@@ -33,7 +33,8 @@
               </div>
             </td>
             <td class="px-3 py-2 text-sm text-gray-500">
-              <div class="flex flex-wrap gap-1">
+              <div class="flex flex-wrap items-center gap-1">
+                <span class="mr-1 font-medium text-gray-900"><%= user.posts_count %></span>
                 <% user.posts.each do |post| %>
                   <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700 ring-1 ring-indigo-600/10 ring-inset"><%= truncate(post.title, length: 24) %></span>
                 <% end %>

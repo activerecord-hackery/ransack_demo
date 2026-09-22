@@ -90,6 +90,11 @@ module ApplicationHelper
     ])
   end
 
+  # A one-line note under a form field naming the ransack feature it uses.
+  def caption(text)
+    tag.p text, class: "mt-1 font-mono text-xs text-gray-500"
+  end
+
   def nav_link(label, path)
     active = current_page?(path)
     link_to label, path, class: [

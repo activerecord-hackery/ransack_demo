@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   private
 
   def ransack_params
-    User.includes(:posts, :roles).ransack(params[:q])
+    User.with_posts_count.includes(:posts, :roles).ransack(params[:q])
   end
 
   def ransack_result

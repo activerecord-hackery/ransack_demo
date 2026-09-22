@@ -54,7 +54,8 @@ module UsersHelper
     end
   end
 
-  def sort_header(search, field)
-    sort_link search, field, class: "group inline-flex items-center gap-1 text-gray-900 hover:text-indigo-600"
+  def sort_header(search, field, label = nil)
+    sort_link search, field, *[label].compact,
+      class: "group inline-flex items-center gap-1 text-gray-900 hover:text-indigo-600"
   end
 end

@@ -4,7 +4,8 @@
   <h1 class="text-2xl font-semibold tracking-tight">Simple search</h1>
   <p class="mt-1 text-sm text-gray-600">
     A plain <code class="rounded bg-gray-100 px-1 py-0.5 text-xs">search_form_for</code> with
-    predicate-suffixed field names, such as <code class="rounded bg-gray-100 px-1 py-0.5 text-xs">first_name_or_last_name_cont</code>.
+    predicate-suffixed field names, such as <code class="rounded bg-gray-100 px-1 py-0.5 text-xs">name_cont</code>.
+    Each field's caption names the ransack feature behind it.
   </p>
 </div>
 
@@ -14,8 +15,9 @@
       <legend class="text-sm font-semibold text-gray-900">User</legend>
       <div class="mt-3 space-y-4">
         <div>
-          <%= f.label :first_name_or_last_name_cont, class: "block text-sm/6 font-medium text-gray-900" %>
-          <%= f.search_field :first_name_or_last_name_cont, class: input_classes %>
+          <%= f.label :name_cont, class: "block text-sm/6 font-medium text-gray-900" %>
+          <%= f.search_field :name_cont, class: input_classes %>
+          <%= caption "ransack_alias :name, :first_name_or_last_name" %>
         </div>
         <div>
           <%= f.label :email_cont, class: "block text-sm/6 font-medium text-gray-900" %>
@@ -25,7 +27,19 @@
           <%= f.label :roles_name_in, "Roles", class: "block text-sm/6 font-medium text-gray-900" %>
           <%= f.collection_select :roles_name_in, Role.order(:name), :name, :name, {},
             multiple: true, size: 3, class: [select_classes, "w-full"] %>
-          <p class="mt-1 text-xs text-gray-500">Searches through the <code>roles</code> association with <code>roles_name_in</code>.</p>
+          <%= caption "roles_name_in searches through the roles association" %>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <%= f.label :created_at_gteq, "Created from", class: "block text-sm/6 font-medium text-gray-900" %>
+            <%= f.date_field :created_at_gteq, class: input_classes %>
+            <%= caption "created_at_gteq" %>
+          </div>
+          <div>
+            <%= f.label :created_at_lteq_end_of_day, "Created to", class: "block text-sm/6 font-medium text-gray-900" %>
+            <%= f.date_field :created_at_lteq_end_of_day, class: input_classes %>
+            <%= caption "custom predicate lteq_end_of_day, see config/initializers/ransack.rb" %>
+          </div>
         </div>
       </div>
     </fieldset>
@@ -45,7 +59,32 @@
           <%= f.label :posts_tags_name_in, "Tags", class: "block text-sm/6 font-medium text-gray-900" %>
           <%= f.collection_select :posts_tags_name_in, Tag.order(:name), :name, :name, {},
             multiple: true, size: 3, class: [select_classes, "w-full"] %>
-          <p class="mt-1 text-xs text-gray-500">Reaches two associations deep with <code>posts_tags_name_in</code>.</p>
+          <%= caption "posts_tags_name_in reaches two associations deep" %>
+        </div>
+        <div>
+          <%= f.label :posts_count_gteq, "Has at least this many posts", class: "block text-sm/6 font-medium text-gray-900" %>
+          <%= f.number_field :posts_count_gteq, min: 0, class: input_classes %>
+          <%= caption "posts_count is a ransacker over a COUNT subquery; the Posts column sorts by it" %>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="sm:col-span-2">
+      <legend class="text-sm font-semibold text-gray-900">Across several posts</legend>
+      <p class="mt-1 text-xs text-gray-500">
+        Conditions in one search apply to the same joined post, so "a post titled A and a post titled B" cannot be
+        expressed with <code>posts_title_eq</code> twice. These are <code>ransackable_scopes</code>, each with its own subquery.
+      </p>
+      <div class="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div>
+          <%= f.label :with_post_titled, "Has a post titled", class: "block text-sm/6 font-medium text-gray-900" %>
+          <%= f.search_field :with_post_titled, class: input_classes %>
+          <%= caption "scope :with_post_titled" %>
+        </div>
+        <div>
+          <%= f.label :without_post_titled, "Has no post titled", class: "block text-sm/6 font-medium text-gray-900" %>
+          <%= f.search_field :without_post_titled, class: input_classes %>
+          <%= caption "scope :without_post_titled" %>
         </div>
       </div>
     </fieldset>

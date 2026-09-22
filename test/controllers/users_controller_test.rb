@@ -8,10 +8,29 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_result_emails %w[alice@example.com bob@example.com carol@example.com]
   end
 
-  test "index filters by name" do
-    get users_url, params: {q: {first_name_or_last_name_cont: "ali"}}
+  test "index filters by name through the alias" do
+    get users_url, params: {q: {name_cont: "ali"}}
     assert_response :success
     assert_result_emails %w[alice@example.com]
+    assert_select "input[name='q[name_cont]'][value=ali]"
+  end
+
+  test "index filters across several posts with scopes" do
+    get users_url, params: {q: {with_post_titled: "Ruby on Rails", without_post_titled: "Elixir"}}
+    assert_result_emails %w[alice@example.com]
+    assert_select "input[name='q[with_post_titled]'][value='Ruby on Rails']"
+  end
+
+  test "index filters and sorts by posts count" do
+    get users_url, params: {q: {posts_count_gteq: 1, s: "posts_count desc"}, distinct: 1}
+    assert_result_emails %w[alice@example.com bob@example.com]
+    assert_select "th a.sort_link.desc", /Posts/
+  end
+
+  test "index filters by a created date range" do
+    day = users(:alice).created_at.to_date.to_s
+    get users_url, params: {q: {created_at_gteq: day, created_at_lteq_end_of_day: day}}
+    assert_select "h2", "Your 3 results"
   end
 
   test "index filters through the posts association" do
