@@ -17,12 +17,14 @@ module UsersHelper
   # Attributes whose values come from a short, known list. The advanced search
   # offers these as a select instead of a free-text field.
   def value_options
-    tag_names = Tag.order(:name).pluck(:name)
-    {
-      "roles_name" => Role.order(:name).pluck(:name),
-      "posts_tags_name" => tag_names,
-      "other_posts_tags_name" => tag_names
-    }
+    @value_options ||= begin
+      tag_names = Tag.order(:name).pluck(:name)
+      {
+        "roles_name" => Role.order(:name).pluck(:name),
+        "posts_tags_name" => tag_names,
+        "other_posts_tags_name" => tag_names
+      }
+    end
   end
 
   # The attribute of the condition a value field belongs to.

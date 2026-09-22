@@ -17,27 +17,31 @@ export default class extends Controller {
     const button = event.currentTarget
     const template = button.previousElementSibling
     button.insertAdjacentHTML("beforebegin", this.stamp(template.innerHTML, event.params.type))
-    if (event.params.type === "value") this.syncValueFields(button.closest("[data-fields=condition]"))
+    // A freshly added value field is a text input; give it the select its
+    // attribute calls for, leaving the values already chosen alone.
+    if (event.params.type === "value") this.syncValueField(button.previousElementSibling)
   }
 
   // Attributes with a known set of values (see UsersHelper#value_options) get
   // a select instead of a text field, swapped in whenever the attribute changes.
   attributeChanged(event) {
-    this.syncValueFields(event.currentTarget.closest("[data-fields=condition]"))
+    const condition = event.currentTarget.closest("[data-fields=condition]")
+    condition.querySelectorAll("[data-fields=value]").forEach((container) => this.syncValueField(container))
   }
 
-  syncValueFields(condition) {
-    const attribute = condition.querySelector("select[name$='[name]']").value
+  syncValueField(container) {
+    const attribute = container.closest("[data-fields=condition]").querySelector("select[name$='[name]']").value
     const options = this.valueOptionsTargets.find((template) => template.dataset.attribute === attribute)
     const template = options || this.valueInputTarget
-    condition.querySelectorAll("[data-fields=value]").forEach((container) => {
-      const current = container.querySelector("input, select")
-      const replacement = template.content.firstElementChild.cloneNode(true)
-      if (current.tagName === "INPUT" && replacement.tagName === "INPUT") return
-      replacement.name = current.name
-      replacement.id = current.id
-      current.replaceWith(replacement)
-    })
+    const current = container.querySelector("input, select")
+    const replacement = template.content.firstElementChild.cloneNode(true)
+    // Already the right kind of field: a text input, or a select for this attribute.
+    if (current.tagName === "INPUT" && replacement.tagName === "INPUT") return
+    if (current.tagName === "SELECT" && current.dataset.attribute === attribute) return
+    replacement.name = current.name
+    replacement.id = current.id
+    if (replacement.tagName === "SELECT") replacement.dataset.attribute = attribute
+    current.replaceWith(replacement)
   }
 
   remove(event) {

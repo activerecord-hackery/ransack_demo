@@ -1,6 +1,13 @@
 require "test_helper"
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
+  test "root highlights the simple search in the navigation" do
+    get root_url
+    assert_select "nav a[aria-current=page]", "Simple search"
+    get advanced_search_users_url
+    assert_select "nav a[aria-current=page]", "Advanced search"
+  end
+
   test "index lists every user" do
     get users_url
     assert_response :success

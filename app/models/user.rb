@@ -28,8 +28,9 @@ class User < ApplicationRecord
     updated_at.strftime(datetime_format)
   end
 
+  # Memoised per process: the footer shows it on every page.
   def self.postgres_version
-    connection.execute("select version()").to_a.first["version"].first(16).strip
+    @postgres_version ||= connection.execute("select version()").to_a.first["version"].first(16).strip
   end
 
   # Allowlist the User model attributes for sorting, except +password_digest+.
