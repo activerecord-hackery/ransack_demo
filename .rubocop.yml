@@ -2,7 +2,13 @@
 
 AllCops:
   DisabledByDefault: true
-  TargetRubyVersion: 3.1
+  TargetRubyVersion: 3.4
+  NewCops: disable
+  SuggestExtensions: false
+  Exclude:
+    - "vendor/**/*"
+    - "db/schema.rb"
+    - "bin/**/*"
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes

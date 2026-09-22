@@ -1,11 +1,14 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+alice_rails:
+  user: alice
+  title: Ruby on Rails
+  body: A web framework.
 
-one:
-  user: 
-  title: MyString
-  body: MyText
+alice_rust:
+  user: alice
+  title: Rust
+  body: A systems language.
 
-two:
-  user: 
-  title: MyString
-  body: MyText
+bob_elixir:
+  user: bob
+  title: Elixir
+  body: A functional language.

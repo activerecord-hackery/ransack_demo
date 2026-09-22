@@ -1,9 +1,7 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+admin:
+  name: admin
+  description: Superuser.
 
-one:
-  name: MyString
-  description: MyString
-
-two:
-  name: MyString
-  description: MyString
+user:
+  name: user
+  description: A plain old user.

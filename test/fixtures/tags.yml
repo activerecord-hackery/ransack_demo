@@ -1,7 +1,8 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+ruby:
+  name: ruby
 
-one:
-  name: MyString
+web:
+  name: web
 
-two:
-  name: MyString
+functional:
+  name: functional
