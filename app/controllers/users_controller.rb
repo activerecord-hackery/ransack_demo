@@ -15,7 +15,9 @@ class UsersController < ApplicationController
   private
 
   def ransack_params
-    User.with_posts_count.includes(:posts, :roles).ransack(params[:q])
+    # auth_object is normally a current user or role; here it tells the model
+    # which form is asking, see User.ransackable_attributes.
+    User.with_posts_count.includes(:posts, :roles).ransack(params[:q], auth_object: action_name.to_sym)
   end
 
   def ransack_result

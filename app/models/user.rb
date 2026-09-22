@@ -42,11 +42,17 @@ class User < ApplicationRecord
   end
 
   # Allowlist the User model attributes for search, except +password_digest+,
-  # as above. The ransackers below are included via +_ransackers.keys+, and
-  # the +name+ alias via +_ransack_aliases.keys+.
+  # as above. The ransackers below are included via +_ransackers.keys+.
+  #
+  # The +name+ alias must be allowlisted for +name_cont+ to work, but ransack
+  # does not resolve an alias arriving as an advanced-search attribute
+  # (activerecord-hackery/ransack#1728), and +attribute_select+ lists every
+  # allowlisted attribute. The controller passes the action as +auth_object+,
+  # so the alias is offered to the simple form only.
   #
   def self.ransackable_attributes(auth_object = nil)
-    ransortable_attributes + _ransackers.keys + _ransack_aliases.keys
+    attributes = (ransortable_attributes + _ransackers.keys).uniq
+    (auth_object == :advanced_search) ? attributes : attributes + _ransack_aliases.keys
   end
 
   # Allowlist the User model associations for search.

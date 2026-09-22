@@ -1,6 +1,12 @@
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
+  test "searchable attributes have no duplicates and hide the alias from the advanced form" do
+    assert_equal User.ransackable_attributes.uniq, User.ransackable_attributes
+    assert_includes User.ransackable_attributes, "name"
+    assert_not_includes User.ransackable_attributes(:advanced_search), "name"
+  end
+
   test "name alias searches first or last name" do
     assert_equal [users(:alice)], User.ransack(name_cont: "ali").result.to_a
     assert_equal [users(:bob)], User.ransack(name_eq: "Jones").result.to_a
