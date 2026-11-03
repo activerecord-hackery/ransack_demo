@@ -5,7 +5,7 @@ ruby file: ".ruby-version"
 gem "rails", "~> 8.1.4"
 
 # Use PostgreSQL as the database for Active Record
-gem "pg", "~> 1.6"
+gem "pg", "~> 1.7"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 6.0"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
@@ -20,7 +20,7 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 
 # The star of the show
-gem "ransack", "~> 5.0"
+gem "ransack", "~> 6.0"
 
 # Seed data
 gem "factory_bot"
