@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :roles
 
   # A ransack_alias gives a long attribute chain a short name: the simple search
-  # form uses name_cont instead of first_name_or_last_name_cont.
+  # form uses name_i_cont instead of first_name_or_last_name_i_cont.
   ransack_alias :name, :first_name_or_last_name
 
   # Scopes for the question in issue #6: a single grouping ANDs its conditions
@@ -44,15 +44,12 @@ class User < ApplicationRecord
   # Allowlist the User model attributes for search, except +password_digest+,
   # as above. The ransackers below are included via +_ransackers.keys+.
   #
-  # The +name+ alias must be allowlisted for +name_cont+ to work, but ransack
-  # does not resolve an alias arriving as an advanced-search attribute
-  # (activerecord-hackery/ransack#1728), and +attribute_select+ lists every
-  # allowlisted attribute. The controller passes the action as +auth_object+,
-  # so the alias is offered to the simple form only.
+  # The +name+ alias does not need to be listed: ransack expands it to
+  # +first_name_or_last_name+ and checks those attributes instead. Leaving it
+  # out also keeps it out of the advanced search's +attribute_select+.
   #
-  def self.ransackable_attributes(auth_object = nil)
-    attributes = (ransortable_attributes + _ransackers.keys).uniq
-    (auth_object == :advanced_search) ? attributes : attributes + _ransack_aliases.keys
+  def self.ransackable_attributes(_auth_object = nil)
+    (ransortable_attributes + _ransackers.keys).uniq
   end
 
   # Allowlist the User model associations for search.
