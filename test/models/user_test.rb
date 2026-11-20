@@ -1,14 +1,13 @@
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
-  test "searchable attributes have no duplicates and hide the alias from the advanced form" do
+  test "searchable attributes have no duplicates and leave out the alias" do
     assert_equal User.ransackable_attributes.uniq, User.ransackable_attributes
-    assert_includes User.ransackable_attributes, "name"
-    assert_not_includes User.ransackable_attributes(:advanced_search), "name"
+    assert_not_includes User.ransackable_attributes, "name"
   end
 
   test "name alias searches first or last name" do
-    assert_equal [users(:alice)], User.ransack(name_cont: "ali").result.to_a
+    assert_equal [users(:alice)], User.ransack(name_i_cont: "ali").result.to_a
     assert_equal [users(:bob)], User.ransack(name_eq: "Jones").result.to_a
   end
 
@@ -26,12 +25,12 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "posts_count sorts with distinct results and a join" do
-    users = User.with_posts_count.ransack(posts_title_cont: "R", s: "posts_count desc").result(distinct: true)
+    users = User.with_posts_count.ransack(posts_title_i_cont: "R", s: "posts_count desc").result(distinct: true)
     assert_equal [["Alice", 2], ["Bob", 1]], users.map { |u| [u.first_name, u.posts_count] }
   end
 
   test "counting the posts that matched the search, per user" do
-    counts = User.ransack(posts_title_cont: "R").result.group("users.id").count
+    counts = User.ransack(posts_title_i_cont: "R").result.group("users.id").count
     assert_equal({users(:alice).id => 2, users(:bob).id => 1}, counts)
   end
 

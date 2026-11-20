@@ -20,7 +20,7 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 
 # The star of the show
-gem "ransack", "~> 5.0"
+gem "ransack", "~> 6.1"
 
 # Seed data
 gem "factory_bot"

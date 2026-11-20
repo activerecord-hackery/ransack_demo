@@ -16,7 +16,7 @@ feature behind it. The map, by file:
 
 | Feature | Where |
 | --- | --- |
-| `search_form_for` with predicate-suffixed fields (`name_cont`, `email_cont`, `posts_title_cont`) | `app/views/users/index.erb` |
+| `search_form_for` with predicate-suffixed fields (`name_i_cont`, `email_i_cont`, `posts_title_i_cont`) | `app/views/users/index.erb` |
 | `ransack_alias :name, :first_name_or_last_name` | `app/models/user.rb` |
 | Searching through associations, one and two levels deep (`roles_name_in`, `posts_tags_name_in`) | `app/models/user.rb`, `app/models/post.rb` |
 | A `ransacker` over a concatenation (`full_name`) and one over a `COUNT` subquery (`posts_count`), used to filter and to sort | `app/models/user.rb` |

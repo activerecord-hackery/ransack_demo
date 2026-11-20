@@ -16,10 +16,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "index filters by name through the alias" do
-    get users_url, params: {q: {name_cont: "ali"}}
+    get users_url, params: {q: {name_i_cont: "ali"}}
     assert_response :success
     assert_result_emails %w[alice@example.com]
-    assert_select "input[name='q[name_cont]'][value=ali]"
+    assert_select "input[name='q[name_i_cont]'][value=ali]"
   end
 
   test "index filters across several posts with scopes" do
@@ -41,7 +41,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "index filters through the posts association" do
-    get users_url, params: {q: {posts_title_cont: "Ru"}, distinct: 1}
+    get users_url, params: {q: {posts_title_i_cont: "Ru"}, distinct: 1}
     assert_response :success
     assert_result_emails %w[alice@example.com]
   end
@@ -159,14 +159,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select "template[data-search-target=valueOptions][data-attribute=posts_tags_name] option[value=ruby]"
   end
 
-  test "advanced search does not offer the name alias and survives being sent it" do
+  test "advanced search does not offer the name alias but expands it when sent" do
     get advanced_search_users_url, params: {
-      q: {g: {"0" => {c: {"0" => {a: {"0" => {name: "name"}}, p: "cont", v: {"0" => {value: "a"}}}}}}}
+      q: {g: {"0" => {c: {"0" => {a: {"0" => {name: "name"}}, p: "i_cont", v: {"0" => {value: "a"}}}}}}}
     }
     assert_response :success
     assert_select "select[name='q[g][0][c][new_condition][a][0][name]'] option[value=name]", 0
     assert_select "select[name='q[g][0][c][new_condition][a][0][name]'] option[value=posts_count]", 1
-    assert_result_emails %w[alice@example.com bob@example.com carol@example.com]
+    assert_result_emails %w[alice@example.com carol@example.com]
   end
 
   test "advanced search ignores attributes that are not allowlisted" do
